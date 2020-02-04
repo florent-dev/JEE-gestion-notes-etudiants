@@ -11,7 +11,6 @@
 %>
 
 <h2 class="display-4 text-white">Liste des groupes</h2>
-<p class="lead text-white mb-0">Sélectionnez un groupe d'étudiants.</p>
 
 <div class="row text-white">
 

@@ -58,16 +58,16 @@ public class Controller extends HttpServlet {
             Module MI4 = ModuleDAO.create("MI4");
 
             // Liés groupe et module
-            //MIAM.addModule(MI1);
-            //MIAM.addModule(MI4);
-            //SIMO.addModule(MI1);
+            MIAM.addModule(MI1);
+            MIAM.addModule(MI4);
+            SIMO.addModule(MI1);
 
             MI1.addGroupe(MIAM);
             MI4.addGroupe(MIAM);
             MI1.addGroupe(SIMO);
 
-            //GroupeDAO.update(MIAM);
-            //GroupeDAO.update(SIMO);
+            GroupeDAO.update(MIAM);
+            GroupeDAO.update(SIMO);
 
             ModuleDAO.update(MI1);
             ModuleDAO.update(MI4);
@@ -135,6 +135,7 @@ public class Controller extends HttpServlet {
     private void doGroupe(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String ajouterGroupeAction = request.getParameter("ajouterGroupe");
         String supprimerEtudiantAction = request.getParameter("supprimerEtudiant");
+        String ajouterModuleAction = request.getParameter("ajouterModuleAuGroupe");
 
         // Ajouter un groupe
         if (ajouterGroupeAction != null) {
@@ -148,8 +149,26 @@ public class Controller extends HttpServlet {
         }
 
         int id = Integer.parseInt(request.getParameter("id"));
-
         Groupe groupe = GroupeDAO.find(id);
+
+        // Ajouter un module au groupe
+        if (ajouterModuleAction != null) {
+            int moduleId = Integer.parseInt(ajouterModuleAction);
+            Module module = ModuleDAO.find(moduleId);
+
+            if (module != null) {
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTEAAAAAAAAAAAAAAAAAAAAAAAAJOUTE");
+
+                groupe.addModule(module);
+                module.addGroupe(groupe);
+
+                GroupeDAO.update(groupe);
+                ModuleDAO.update(module);
+
+                response.sendRedirect(request.getContextPath() + "/do/groupe?id=" + groupe.getId());
+                return;
+            }
+        }
 
         request.setAttribute("groupe", groupe);
 
@@ -164,9 +183,15 @@ public class Controller extends HttpServlet {
         if (ajouterEtudiantAction != null) {
             String nomEtudiant = request.getParameter("nomEtudiant");
             String prenomEtudiant = request.getParameter("prenomEtudiant");
+            String groupeEtudiantId = request.getParameter("groupeEtudiant");
 
-            if (nomEtudiant != null && prenomEtudiant != null) {
-                EtudiantDAO.create(prenomEtudiant, nomEtudiant, null);
+            if (nomEtudiant != null && prenomEtudiant != null && groupeEtudiantId != null) {
+                Groupe groupeEtudiant = GroupeDAO.find(Integer.parseInt(groupeEtudiantId));
+
+                if (groupeEtudiant != null) {
+                    EtudiantDAO.create(prenomEtudiant, nomEtudiant, groupeEtudiant);
+                }
+
                 response.sendRedirect(request.getContextPath() + "/do/etudiants");
                 return;
             }

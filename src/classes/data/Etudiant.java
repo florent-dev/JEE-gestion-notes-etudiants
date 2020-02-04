@@ -19,7 +19,7 @@ public class Etudiant implements Serializable {
 	private Integer nbAbsences = 0;
 
 	@ManyToOne
-	private Groupe groupe = null;
+	private Groupe groupe;
 	
 	public Etudiant(Integer id, String prenom, String nom, Integer nbAbsences, Groupe groupe) {
 		super();

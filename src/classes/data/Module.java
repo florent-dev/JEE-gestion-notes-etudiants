@@ -16,7 +16,7 @@ public class Module implements Serializable {
     private String nom;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "module_groupe",
+    @JoinTable(name = "MODULE_GROUP",
             joinColumns = @JoinColumn(name = "module_id"),
             inverseJoinColumns = @JoinColumn(name = "groupe_id")
     )

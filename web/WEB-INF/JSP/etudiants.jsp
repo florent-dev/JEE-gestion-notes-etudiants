@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<%@ page import="classes.data.Etudiant" %>
-<%@ page import="classes.data.EtudiantDAO" %>
 <%@ page import="java.util.Collection" %>
+<%@ page import="classes.data.*" %>
+<%@ page import="classes.data.Module" %>
 
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 
@@ -52,8 +52,14 @@
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
             <form method="post" action="<%= application.getContextPath() %>/do/etudiants">
-                <input type="text" class="form-control mb-2" name="nomEtudiant" placeholder="Nom" />
-                <input type="text" class="form-control mb-2" name="prenomEtudiant" placeholder="Prénom" />
+                <input type="text" class="form-control mb-2" name="nomEtudiant" placeholder="Nom" required />
+                <input type="text" class="form-control mb-2" name="prenomEtudiant" placeholder="Prénom" required />
+                <select class="form-control mb-2" name="groupeEtudiant" required>
+                    <option class="disabled" value="" disabled selected>Attribuer un groupe</option>
+                    <% for (Groupe groupe: GroupeDAO.getAll()) { %>
+                    <option value="<%= groupe.getId() %>"><%= groupe.getNom() %></option>
+                    <% } %>
+                </select>
                 <input type="submit" class="btn btn-info" name="ajouterEtudiant" value="Ajouter" />
             </form>
         </div>

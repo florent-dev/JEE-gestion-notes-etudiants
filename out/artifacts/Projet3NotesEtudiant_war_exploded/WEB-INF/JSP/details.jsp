@@ -25,7 +25,7 @@
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
             <p class="lead">
-                <a href="index.jsp">Retour à la liste des étudiants</a>
+                Groupe : <a href="groupe?id=<%= etudiant.getGroupe().getId() %>"><%= etudiant.getGroupe().getNom() %></a>
             </p>
         </div>
     </div>

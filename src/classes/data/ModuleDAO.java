@@ -6,6 +6,15 @@ import java.util.List;
 
 public class ModuleDAO {
 
+    public static Module find(int id) {
+        // Creation de l'entity manager
+        EntityManager em = GestionFactory.factory.createEntityManager();
+        Module module = em.find(Module.class, id);
+        em.close();
+
+        return module;
+    }
+
     public static List<Module> getAll() {
         // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
@@ -46,13 +55,8 @@ public class ModuleDAO {
         // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
 
-        //
         em.getTransaction().begin();
-
-        // Attacher une entité persistante (etudiant) à l’EntityManager courant  pour réaliser la modification
         em.merge(module);
-
-        // Commit
         em.getTransaction().commit();
 
         // Close the entity manager
