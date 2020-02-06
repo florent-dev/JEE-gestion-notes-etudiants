@@ -48,6 +48,10 @@
             <param-value>/WEB-INF/JSP/modules.jsp</param-value>
         </init-param>
         <init-param>
+            <param-name>modules-notes</param-name>
+            <param-value>/WEB-INF/JSP/modules-notes.jsp</param-value>
+        </init-param>
+        <init-param>
             <param-name>404</param-name>
             <param-value>/WEB-INF/JSP/404.jsp</param-value>
         </init-param>

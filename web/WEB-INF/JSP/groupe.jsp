@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<%@ page import="classes.data.Etudiant" %>
-<%@ page import="classes.data.EtudiantDAO" %>
 <%@ page import="java.util.Collection" %>
+<%@ page import="classes.data.*" %>
 <%@ page import="classes.data.Module" %>
-<%@ page import="classes.data.ModuleDAO" %>
 
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 
@@ -26,34 +24,19 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <table class="table table-striped table-borderless">
-                <tr>
-                    <th>Liste des étudiants</th>
-                </tr>
-                <% for (Etudiant etudiant: listeEtudiants) { %>
-                <tr>
-                    <td>
-                        <a href="<%= application.getContextPath() %>/do/details?id=<%= etudiant.getId() %>">
-                            <%= etudiant.getNom() %>
-                            <%= etudiant.getPrenom() %>
-                        </a>
-                    </td>
-                </tr>
-                <% } %>
-            </table>
-        </div>
-    </div>
-
-    <div class="col-lg-5">
-        <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <table class="table table-striped table-borderless">
-                <tr>
-                    <th>Liste des modules</th>
-                </tr>
+            <table class="table">
                 <% for (Module module: groupeModules) { %>
                 <tr>
                     <td>
                         <%= module.getNom() %>
+                        <% for (Evaluation evaluation: evaluations) { %>
+                            blabla
+                        <% } %>
+                    </td>
+                    <td class="text-right">
+                        <a href="<%= application.getContextPath() %>/do/module-notes?module=<%= module.getId() %>&groupe=<%= groupe.getId() %>">
+                            <i class="fa fa-plus mt-1"></i> Nouvelle évaluation
+                        </a>
                     </td>
                 </tr>
                 <% } %>
@@ -72,8 +55,27 @@
                 </select>
             </form>
         </div>
+    </div>
+
+    <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <p class="lead">Contrôles</p>
+            <table class="table table-striped table-borderless">
+                <tr>
+                    <th>Liste des étudiants</th>
+                </tr>
+                <% for (Etudiant etudiant: listeEtudiants) { %>
+                <tr>
+                    <td>
+                        <a href="<%= application.getContextPath() %>/do/details?id=<%= etudiant.getId() %>">
+                            <%= etudiant.getNom() %>
+                            <%= etudiant.getPrenom() %>
+                        </a>
+                    </td>
+                </tr>
+                <% } %>
+            </table>
+
+            <a href="<%= application.getContextPath() %>/do/absence" class="btn btn-outline-info">Faire l'appel</a>
         </div>
     </div>
 

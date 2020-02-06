@@ -4,7 +4,7 @@
 <%@ page import="classes.data.Etudiant" %>
 <%@ page import="classes.data.GestionFactory" %>
 
-<jsp:useBean id="etudiant" class="classes.data.Etudiant" scope="request"/>
+<jsp:useBean id="etudiant" class="classes.data.Etudiant" scope="request" />
 
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 

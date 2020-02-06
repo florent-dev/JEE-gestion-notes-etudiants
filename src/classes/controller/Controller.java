@@ -21,6 +21,7 @@ public class Controller extends HttpServlet {
     private String urlGroupe;
     private String urlEtudiants;
     private String urlModules;
+    private String urlModuleNotes;
     private String url404;
 
     @Override
@@ -31,6 +32,7 @@ public class Controller extends HttpServlet {
         urlGroupe = getInitParameter("groupe");
         urlEtudiants = getInitParameter("etudiants");
         urlModules = getInitParameter("modules");
+        urlModuleNotes = getInitParameter("module-notes");
         url404 = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
@@ -111,6 +113,9 @@ public class Controller extends HttpServlet {
                 break;
             case "/modules":
                 doModules(request, response);
+                break;
+            case "/module-notes":
+                doModuleNotes(request, response);
                 break;
             default:
                 do404(request, response);
@@ -233,6 +238,45 @@ public class Controller extends HttpServlet {
         }
 
         loadJSP(urlModules, request, response);
+    }
+
+    private void doModuleNotes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // On vérifie qu'on ait module et groupe
+        String moduleId = request.getParameter("module");
+        String groupeId = request.getParameter("groupe");
+
+        if (moduleId == null || groupeId == null) {
+            loadJSP(url404, request, response);
+            return;
+        }
+
+        Module module = ModuleDAO.find(Integer.parseInt(moduleId));
+        Groupe groupe = GroupeDAO.find(Integer.parseInt(groupeId));
+
+        if (module == null || groupe == null) {
+            loadJSP(url404, request, response);
+            return;
+        }
+
+        request.setAttribute("module", module);
+        request.setAttribute("groupe", groupe);
+
+        // Traitement de formulaires
+        String ajouterModuleAction = request.getParameter("ajouterControle");
+        String ajouterNoteEtudiantControleAction = request.getParameter("ajouterNoteEtudiantControle");
+
+        // Ajouter un module
+        if (ajouterModuleAction != null) {
+            String nomModule = request.getParameter("nomModule");
+
+            if (nomModule != null) {
+                ModuleDAO.create(nomModule);
+                response.sendRedirect(request.getContextPath() + "/do/modules");
+                return;
+            }
+        }
+
+        loadJSP(urlModuleNotes, request, response);
     }
 
     private void do404(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
