@@ -23,33 +23,14 @@
     </context-param>
 
     <!--========= Pages =========== -->
-    <!-- Servlet controleur -->
+
+    <!-- GENERAL CONTROLLER SERVLET -->
     <servlet>
-        <servlet-name>controller</servlet-name>
-        <servlet-class>classes.controller.Controller</servlet-class>
+        <servlet-name>defaultController</servlet-name>
+        <servlet-class>classes.controller.DefaultController</servlet-class>
         <init-param>
             <param-name>index</param-name>
             <param-value>/WEB-INF/JSP/index.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>details</param-name>
-            <param-value>/WEB-INF/JSP/details.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>groupe</param-name>
-            <param-value>/WEB-INF/JSP/groupe.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>etudiants</param-name>
-            <param-value>/WEB-INF/JSP/etudiants.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>modules</param-name>
-            <param-value>/WEB-INF/JSP/modules.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>modules-notes</param-name>
-            <param-value>/WEB-INF/JSP/modules-notes.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>404</param-name>
@@ -57,15 +38,148 @@
         </init-param>
     </servlet>
 
-    <!-- Mapping URL/Servlet -->
     <servlet-mapping>
-        <servlet-name>controller</servlet-name>
-        <url-pattern>/do/*</url-pattern>
+        <servlet-name>defaultController</servlet-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/index</url-pattern>
+        <url-pattern>/404</url-pattern>
     </servlet-mapping>
 
-    <!--  fichiers d'accueil -->
+    <!-- ETUDIANT CONTROLLER SERVLET -->
+    <servlet>
+        <servlet-name>etudiantController</servlet-name>
+        <servlet-class>classes.controller.EtudiantController</servlet-class>
+        <init-param>
+            <param-name>list</param-name>
+            <param-value>/WEB-INF/JSP/etudiant/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>view</param-name>
+            <param-value>/WEB-INF/JSP/etudiant/view.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>create</param-name>
+            <param-value>/WEB-INF/JSP/etudiant/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>update</param-name>
+            <param-value>/WEB-INF/JSP/etudiant/update.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>delete</param-name>
+            <param-value>/WEB-INF/JSP/etudiant/delete.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>404</param-name>
+            <param-value>/WEB-INF/JSP/404.jsp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>etudiantController</servlet-name>
+        <url-pattern>/etudiant/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- ENSEIGNANT CONTROLLER SERVLET -->
+    <servlet>
+        <servlet-name>enseignantController</servlet-name>
+        <servlet-class>classes.controller.EnseignantController</servlet-class>
+        <init-param>
+            <param-name>list</param-name>
+            <param-value>/WEB-INF/JSP/enseignant/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>create</param-name>
+            <param-value>/WEB-INF/JSP/enseignant/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>update</param-name>
+            <param-value>/WEB-INF/JSP/enseignant/update.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>delete</param-name>
+            <param-value>/WEB-INF/JSP/enseignant/delete.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>404</param-name>
+            <param-value>/WEB-INF/JSP/404.jsp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>enseignantController</servlet-name>
+        <url-pattern>/enseignant/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- GROUPE CONTROLLER SERVLET -->
+    <servlet>
+        <servlet-name>groupeController</servlet-name>
+        <servlet-class>classes.controller.GroupeController</servlet-class>
+        <init-param>
+            <param-name>list</param-name>
+            <param-value>/WEB-INF/JSP/groupe/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>view</param-name>
+            <param-value>/WEB-INF/JSP/groupe/view.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>create</param-name>
+            <param-value>/WEB-INF/JSP/groupe/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>update</param-name>
+            <param-value>/WEB-INF/JSP/groupe/update.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>delete</param-name>
+            <param-value>/WEB-INF/JSP/groupe/delete.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>404</param-name>
+            <param-value>/WEB-INF/JSP/404.jsp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>groupeController</servlet-name>
+        <url-pattern>/groupe/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- MODULE CONTROLLER SERVLET -->
+    <servlet>
+        <servlet-name>moduleController</servlet-name>
+        <servlet-class>classes.controller.ModuleController</servlet-class>
+        <init-param>
+            <param-name>list</param-name>
+            <param-value>/WEB-INF/JSP/module/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>notes</param-name>
+            <param-value>/WEB-INF/JSP/module/notes.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>create</param-name>
+            <param-value>/WEB-INF/JSP/module/list.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>update</param-name>
+            <param-value>/WEB-INF/JSP/module/update.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>404</param-name>
+            <param-value>/WEB-INF/JSP/404.jsp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>moduleController</servlet-name>
+        <url-pattern>/module/*</url-pattern>
+    </servlet-mapping>
+
+    <!--  Fichiers d'accueil -->
     <welcome-file-list>
-        <welcome-file>do</welcome-file>
+        <welcome-file>/</welcome-file>
     </welcome-file-list>
 
 </web-app>

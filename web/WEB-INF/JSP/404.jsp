@@ -10,7 +10,7 @@
                 La page demandée n'a pas été trouvée ou n'existe plus.
             </p>
             <p class="lead">
-                <a class="btn btn-info" href="<%= application.getContextPath() %>/do/index">Retourner sur l'accueil</a>
+                <a class="btn btn-info" href="<%= application.getContextPath() %>/index">Retourner sur l'accueil</a>
             </p>
         </div>
     </div>

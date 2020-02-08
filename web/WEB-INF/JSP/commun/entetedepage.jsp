@@ -110,21 +110,27 @@
 
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/do/index" class="nav-link text-dark font-italic bg-light">
+            <a href="<%= application.getContextPath() %>/groupe/" class="nav-link text-dark font-italic bg-light">
                 <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
                 Groupes
             </a>
         </li>
         <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/do/etudiants" class="nav-link text-dark font-italic">
+            <a href="<%= application.getContextPath() %>/module/" class="nav-link text-dark font-italic">
+                <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
+                Modules
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="<%= application.getContextPath() %>/etudiant/" class="nav-link text-dark font-italic">
                 <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
                 Étudiants
             </a>
         </li>
         <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/do/modules" class="nav-link text-dark font-italic">
-                <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-                Modules
+            <a href="<%= application.getContextPath() %>/enseignant/" class="nav-link text-dark font-italic">
+                <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
+                Enseignants
             </a>
         </li>
     </ul>
@@ -133,13 +139,13 @@
 
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/do/index" class="nav-link text-dark font-italic">
+            <a href="<%= application.getContextPath() %>/index" class="nav-link text-dark font-italic">
                 <i class="fa fa-pencil mr-3 text-primary fa-fw"></i>
                 Faire un appel
             </a>
         </li>
         <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/do/index" class="nav-link text-dark font-italic">
+            <a href="<%= application.getContextPath() %>/index" class="nav-link text-dark font-italic">
                 <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
                 Récapitulatif
             </a>

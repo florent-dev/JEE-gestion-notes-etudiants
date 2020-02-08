@@ -11,9 +11,12 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <!-- Classes persistées - liées à tes tables de la base de données -->
-        <class>classes.data.Etudiant</class>
-        <class>classes.data.Groupe</class>
-        <class>classes.data.Module</class>
+        <class>classes.entity.Enseignant</class>
+        <class>classes.entity.Etudiant</class>
+        <class>classes.entity.Evaluation</class>
+        <class>classes.entity.Groupe</class>
+        <class>classes.entity.Module</class>
+        <class>classes.entity.Note</class>
 
         <!-- Propriétés de l'unité de persistence -->
         <properties>
@@ -44,8 +47,12 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <!-- Classes persistées - liées à tes tables de la base de données -->
-        <class>classes.data.Etudiant</class>
-        <class>classes.data.Groupe</class>
+        <class>classes.entity.Enseignant</class>
+        <class>classes.entity.Etudiant</class>
+        <class>classes.entity.Evaluation</class>
+        <class>classes.entity.Groupe</class>
+        <class>classes.entity.Module</class>
+        <class>classes.entity.Note</class>
 
         <!-- Propriétés de l'unité de persistence -->
         <properties>
@@ -77,9 +84,12 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <!-- Classes persistées - liées à tes tables de la base de données -->
-        <class>classes.data.Etudiant</class>
-        <class>classes.data.Groupe</class>
-        <class>classes.data.Module</class>
+        <class>classes.entity.Enseignant</class>
+        <class>classes.entity.Etudiant</class>
+        <class>classes.entity.Evaluation</class>
+        <class>classes.entity.Groupe</class>
+        <class>classes.entity.Module</class>
+        <class>classes.entity.Note</class>
 
         <!-- Propriétés de l'unité de persistence -->
         <properties>
