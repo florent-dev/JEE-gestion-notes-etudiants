@@ -58,16 +58,8 @@
             <param-value>/WEB-INF/JSP/etudiant/view.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>create</param-name>
-            <param-value>/WEB-INF/JSP/etudiant/list.jsp</param-value>
-        </init-param>
-        <init-param>
             <param-name>update</param-name>
             <param-value>/WEB-INF/JSP/etudiant/update.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>delete</param-name>
-            <param-value>/WEB-INF/JSP/etudiant/delete.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>404</param-name>
@@ -89,16 +81,8 @@
             <param-value>/WEB-INF/JSP/enseignant/list.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>create</param-name>
-            <param-value>/WEB-INF/JSP/enseignant/list.jsp</param-value>
-        </init-param>
-        <init-param>
             <param-name>update</param-name>
             <param-value>/WEB-INF/JSP/enseignant/update.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>delete</param-name>
-            <param-value>/WEB-INF/JSP/enseignant/delete.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>404</param-name>
@@ -124,16 +108,8 @@
             <param-value>/WEB-INF/JSP/groupe/view.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>create</param-name>
-            <param-value>/WEB-INF/JSP/groupe/list.jsp</param-value>
-        </init-param>
-        <init-param>
             <param-name>update</param-name>
             <param-value>/WEB-INF/JSP/groupe/update.jsp</param-value>
-        </init-param>
-        <init-param>
-            <param-name>delete</param-name>
-            <param-value>/WEB-INF/JSP/groupe/delete.jsp</param-value>
         </init-param>
         <init-param>
             <param-name>404</param-name>

@@ -20,6 +20,7 @@
             <table class="table table-striped table-borderless">
                 <tr>
                     <th>Liste des groupes</th>
+                    <th></th>
                 </tr>
                 <% for (Groupe groupe: listeGroupes) { %>
                 <tr>
@@ -27,6 +28,10 @@
                         <a href="<%= application.getContextPath() %>/groupe/view?id=<%= groupe.getId() %>">
                             <%= groupe.getNom() %>
                         </a>
+                    </td>
+                    <td class="text-right">
+                        <a href="<%= application.getContextPath() %>/groupe/update?id=<%= groupe.getId() %>"><i class="fa fa-pencil fa-fw text-primary mt-1"></i></a>
+                        <a href="<%= application.getContextPath() %>/groupe/delete?id=<%= groupe.getId() %>"><i class="fa fa-trash fa-fw text-primary mt-1"></i></a>
                     </td>
                 </tr>
                 <% } %>

@@ -23,9 +23,7 @@ public class GroupeController extends HttpServlet {
     // URL
     private String urlList;
     private String urlView;
-    private String urlCreate;
     private String urlUpdate;
-    private String urlDelete;
     private String url404;
 
     @Override
@@ -33,6 +31,7 @@ public class GroupeController extends HttpServlet {
         // Récupération des URLs en paramètre du web.xml
         urlList = getInitParameter("list");
         urlView = getInitParameter("view");
+        urlUpdate = getInitParameter("update");
         url404 = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
@@ -69,6 +68,9 @@ public class GroupeController extends HttpServlet {
                 break;
             case "/create":
                 createAction(request, response);
+                break;
+            case "/update":
+                updateAction(request, response);
                 break;
             case "/delete":
                 deleteAction(request, response);
@@ -119,21 +121,19 @@ public class GroupeController extends HttpServlet {
         int idGroupe = ControllerUtils.parseRequestId(request.getParameter("id"));
         String nomGroupe = request.getParameter("nomGroupe");
 
-        // Protection sur l'idEtudiant.
-        if (idGroupe == 0) {
-            response.sendRedirect(request.getContextPath() + "/groupe/list");
-            return;
-        }
-
-        if (nomGroupe != null) {
+        try {
             Groupe groupe = GroupeDAO.find(idGroupe);
+            request.setAttribute("groupe", groupe);
 
-            if (groupe != null) {
+            if (nomGroupe != null) {
                 groupe.setNom(nomGroupe);
                 GroupeDAO.update(groupe);
-                response.sendRedirect(request.getContextPath() + "/etudiant/list");
+                response.sendRedirect(request.getContextPath() + "/groupe/list");
                 return;
             }
+        } catch (Exception e) {
+            response.sendRedirect(request.getContextPath() + "/groupe/list");
+            return;
         }
 
         loadJSP(urlUpdate, request, response);
