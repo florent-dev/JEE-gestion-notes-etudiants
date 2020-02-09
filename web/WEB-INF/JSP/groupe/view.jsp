@@ -30,15 +30,35 @@
                 <% for (Module module: groupeModules) { %>
                 <tr>
                     <td>
-                        <%= module.getNom() %>
-                        <% for (Evaluation evaluation: EvaluationDAO.getByGroupeAndModule(groupe, module)) { %>
-                            blabla
-                        <% } %>
+
+                        <div>
+                            <%= module.getNom() %><br />
+                            <% for (Evaluation evaluation: EvaluationDAO.getByGroupeAndModule(groupe, module)) { %>
+                            <% java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy"); %>
+                            <li class="list-unstyled ml-4">
+                                <a class="text-gray" href="<%= application.getContextPath() %>/groupe/evaluation?id=<%= evaluation.getId() %>">
+                                    <%= df.format(evaluation.getDate()) %> - <%= evaluation.getNom() %>
+                                </a>
+                            </li>
+                            <% } %>
+                            <a data-toggle="collapse" class="ml-4" href="#ajouterEvaluationCollapse<%= module.getId() %>" role="button" aria-expanded="false" aria-controls="ajouterEvaluationCollapse<%= module.getId() %>">
+                                <i class="fa fa-plus mt-1"></i> Nouvelle évaluation
+                            </a>
+                        </div>
+
+                        <div class="collapse multi-collapse" id="ajouterEvaluationCollapse<%= module.getId() %>">
+                            <form method="post" action="<%= application.getContextPath() %>/groupe/createEvaluation">
+                                <input type="hidden" name="gid" value="<%= groupe.getId() %>" required />
+                                <input type="hidden" name="mid" value="<%= module.getId() %>" required />
+                                <input class="btn btn-outline-info btn-sm" type="text" name="nomEvaluation" placeholder="Intitulé de l'évaluation" required />
+                                <input class="btn btn-outline-info btn-sm" type="date" name="dateEvaluation" placeholder="Date" required />
+                                <input class="btn btn-outline-info btn-sm" type="text" name="descriptionEvaluation" placeholder="Description" required />
+                                <input class="btn btn-info btn-sm" type="submit" />
+                            </form>
+                        </div>
+
                     </td>
                     <td class="text-right">
-                        <a href="<%= application.getContextPath() %>/groupe/notes?module=<%= module.getId() %>&groupe=<%= groupe.getId() %>">
-                            <i class="fa fa-plus mt-1"></i> Nouvelle évaluation
-                        </a>
                     </td>
                 </tr>
                 <% } %>

@@ -115,4 +115,21 @@ public class NoteDAO {
         return listNotes;
     }
 
+    // Retourne l'ensemble des évaluations
+    public static Note findByEtudiantAndEvaluation(Etudiant etudiant, Evaluation evaluation) {
+
+        // Creation de l'entity manager
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        // Recherche
+        Query q = em.createQuery("SELECT n FROM Note n WHERE n.etudiant = :etudiant AND n.evaluation = :evaluation")
+                .setParameter("etudiant", etudiant)
+                .setParameter("evaluation", evaluation);
+
+        @SuppressWarnings("unchecked")
+        List<Note> listNotes = q.getResultList();
+
+        return (listNotes.size() > 0) ? listNotes.get(0) : null;
+    }
+
 }

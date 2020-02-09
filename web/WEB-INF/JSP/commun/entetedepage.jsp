@@ -9,90 +9,10 @@
     <title><%= application.getInitParameter("title") %></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous" type="javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
-    <style>
-        .vertical-nav {
-            min-width: 17rem;
-            width: 17rem;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s;
-        }
-
-        .page-content {
-            width: calc(100% - 17rem);
-            margin-left: 17rem;
-            transition: all 0.4s;
-        }
-
-        .lead {
-            color: #6c757d;
-        }
-
-        /* for toggle behavior */
-
-        #sidebar.active {
-            margin-left: -17rem;
-        }
-
-        #content.active {
-            width: 100%;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            #sidebar {
-                margin-left: -17rem;
-            }
-            #sidebar.active {
-                margin-left: 0;
-            }
-            #content {
-                width: 100%;
-                margin: 0;
-            }
-            #content.active {
-                margin-left: 17rem;
-                width: calc(100% - 17rem);
-            }
-        }
-
-        /*
-        *
-        * ==========================================
-        * FOR DEMO PURPOSE
-        * ==========================================
-        *
-        */
-
-        body {
-            background: #599fd9;
-            background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
-            background: linear-gradient(to right, #599fd9, #c2e59c);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .separator {
-            margin: 3rem 0;
-            border-bottom: 1px dashed #fff;
-        }
-
-        .text-uppercase {
-            letter-spacing: 0.1em;
-        }
-
-        .text-gray {
-            color: #aaa;
-        }
-
-    </style>
+    <style><%@ include file="/assets/css/custom.css" %></style>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 
 <body>

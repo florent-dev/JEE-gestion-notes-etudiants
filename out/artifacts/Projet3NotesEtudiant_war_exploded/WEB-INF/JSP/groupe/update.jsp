@@ -15,6 +15,7 @@
                 <input class="form-control mb-1" name="nomGroupe" required type="text" value="<%= groupe.getNom() %>"/>
                 <input type="hidden" value="<%= groupe.getId() %>" name="idGroupe" required />
                 <input type="submit" class="btn btn-info" />
+                <a href="<%= application.getContextPath() %>/groupe/list" class="btn btn-danger">Annuler</a>
             </form>
         </div>
     </div>

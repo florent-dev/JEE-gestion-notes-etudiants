@@ -7,7 +7,7 @@
 
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 
-<h2 class="display-4 text-white">Fiche étudiant n°<%= etudiant.getId() %></h2>
+<h2 class="display-4 text-white">Édition de l'étudiant n°<%= etudiant.getId() %></h2>
 
 <div class="row text-white">
 
@@ -27,6 +27,7 @@
                 </select>
                 <input type="hidden" value="<%= etudiant.getId() %>" name="idEtudiant" required />
                 <input type="submit" class="btn btn-info" />
+                <a href="<%= application.getContextPath() %>/etudiant/list" class="btn btn-danger">Annuler</a>
             </form>
         </div>
     </div>

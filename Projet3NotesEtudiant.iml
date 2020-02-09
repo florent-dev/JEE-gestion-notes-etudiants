@@ -48,5 +48,6 @@
     <orderEntry type="library" exported="" name="mysql:mysql-connector-java:5.1.48" level="project" />
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="font-awesome" level="application" />
+    <orderEntry type="library" name="popper" level="application" />
   </component>
 </module>

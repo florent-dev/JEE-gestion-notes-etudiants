@@ -1,12 +1,15 @@
 package classes.controller;
 
-import classes.entity.*;
+import classes.entity.Etudiant;
+import classes.entity.Evaluation;
+import classes.entity.Groupe;
 import classes.entity.Module;
 import classes.repository.EtudiantDAO;
+import classes.repository.EvaluationDAO;
 import classes.repository.GroupeDAO;
 import classes.repository.ModuleDAO;
-import classes.utils.GestionFactory;
 import classes.utils.ControllerUtils;
+import classes.utils.GestionFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -16,7 +19,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+@SuppressWarnings("ALL")
 @WebServlet("/groupeController")
 public class GroupeController extends HttpServlet {
 
@@ -24,6 +30,7 @@ public class GroupeController extends HttpServlet {
     private String urlList;
     private String urlView;
     private String urlUpdate;
+    private String urlEvaluation;
     private String url404;
 
     @Override
@@ -32,6 +39,7 @@ public class GroupeController extends HttpServlet {
         urlList = getInitParameter("list");
         urlView = getInitParameter("view");
         urlUpdate = getInitParameter("update");
+        urlEvaluation = getInitParameter("viewEvaluation");
         url404 = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
@@ -78,6 +86,15 @@ public class GroupeController extends HttpServlet {
             case "/ajouterModule":
                 ajouterModuleAction(request, response);
                 break;
+            case "/createEvaluation":
+                createEvaluationAction(request, response);
+                break;
+            case "/evaluation":
+                manageEvaluationAction(request, response);
+                break;
+            case "/updateEvaluation":
+                updateEvaluationAction(request, response);
+                break;
             default:
                 notFoundAction(request, response);
         }
@@ -91,14 +108,14 @@ public class GroupeController extends HttpServlet {
         int id = ControllerUtils.parseRequestId(request.getParameter("id"));
 
         if (id == 0) {
-            response.sendRedirect(request.getContextPath() + "/groupe/list");
+            response.sendRedirect(request.getContextPath() + "/groupe/");
             return;
         }
 
         Groupe groupe = GroupeDAO.find(id);
 
         if (groupe == null) {
-            response.sendRedirect(request.getContextPath() + "/groupe/list");
+            response.sendRedirect(request.getContextPath() + "/groupe/");
             return;
         }
 
@@ -114,7 +131,7 @@ public class GroupeController extends HttpServlet {
             GroupeDAO.create(nomGroupe);
         }
 
-        response.sendRedirect(request.getContextPath() + "/groupe/list");
+        response.sendRedirect(request.getContextPath() + "/groupe/");
     }
 
     private void updateAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -128,11 +145,11 @@ public class GroupeController extends HttpServlet {
             if (nomGroupe != null) {
                 groupe.setNom(nomGroupe);
                 GroupeDAO.update(groupe);
-                response.sendRedirect(request.getContextPath() + "/groupe/list");
+                response.sendRedirect(request.getContextPath() + "/groupe/");
                 return;
             }
         } catch (Exception e) {
-            response.sendRedirect(request.getContextPath() + "/groupe/list");
+            response.sendRedirect(request.getContextPath() + "/groupe/");
             return;
         }
 
@@ -151,7 +168,7 @@ public class GroupeController extends HttpServlet {
 
         }
 
-        response.sendRedirect(request.getContextPath() + "/etudiant/list");
+        response.sendRedirect(request.getContextPath() + "/groupe/");
     }
 
     private void ajouterModuleAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -176,6 +193,72 @@ public class GroupeController extends HttpServlet {
         }
 
         response.sendRedirect(request.getContextPath() + "/groupe/list");
+    }
+
+    private void createEvaluationAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int groupeId = ControllerUtils.parseRequestId(request.getParameter("gid"));
+        int moduleId = ControllerUtils.parseRequestId(request.getParameter("mid"));
+
+        if (groupeId != 0 && moduleId != 0) {
+            Groupe groupe = GroupeDAO.find(groupeId);
+            Module module = ModuleDAO.find(moduleId);
+
+            String nomEvaluation = request.getParameter("nomEvaluation");
+            String descriptionEvaluation = request.getParameter("descriptionEvaluation");
+            String dateEvaluation = request.getParameter("dateEvaluation");
+
+            if (groupe != null && module != null && nomEvaluation != null && descriptionEvaluation != null && dateEvaluation != null) {
+                try {
+                    Date dateEvaluationParsed = new SimpleDateFormat("yyyy-MM-dd").parse(dateEvaluation);
+                    EvaluationDAO.create(nomEvaluation, dateEvaluationParsed, descriptionEvaluation, groupe, module);
+                } catch (Exception e) {
+                    //System.out.println(e);
+                }
+
+                response.sendRedirect(request.getContextPath() + "/groupe/view?id=" + groupe.getId());
+                return;
+            }
+        }
+
+        response.sendRedirect(request.getContextPath() + "/groupe/list");
+    }
+
+    private void manageEvaluationAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int evaluationId = ControllerUtils.parseRequestId(request.getParameter("id"));
+
+        if (evaluationId == 0) {
+            response.sendRedirect(request.getContextPath() + "/groupe/");
+            return;
+        }
+
+        Evaluation evaluation = EvaluationDAO.find(evaluationId);
+        request.setAttribute("evaluation", evaluation);
+
+        if (evaluation == null) {
+            response.sendRedirect(request.getContextPath() + "/groupe/");
+            return;
+        }
+
+        loadJSP(urlEvaluation, request, response);
+    }
+
+    private void updateEvaluationAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int evaluationId = ControllerUtils.parseRequestId(request.getParameter("id"));
+
+        if (evaluationId == 0) {
+            response.sendRedirect(request.getContextPath() + "/groupe/");
+            return;
+        }
+
+        Evaluation evaluation = EvaluationDAO.find(evaluationId);
+        request.setAttribute("evaluation", evaluation);
+
+        if (evaluation == null) {
+            response.sendRedirect(request.getContextPath() + "/groupe/");
+            return;
+        }
+
+        loadJSP(urlEvaluation, request, response);
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
