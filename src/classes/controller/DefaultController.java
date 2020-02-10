@@ -20,14 +20,14 @@ import java.io.IOException;
 public class DefaultController extends HttpServlet {
 
     // URL
-    private String urlAccueil;
-    private String url404;
+    private String urlAccueilTemplate;
+    private String url404Template;
 
     @Override
     public void init() throws ServletException {
         // Récupération des URLs en paramètre du web.xml
-        urlAccueil = getInitParameter("index");
-        url404 = getInitParameter("404");
+        urlAccueilTemplate = getInitParameter("index");
+        url404Template = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
         GestionFactory.open();
@@ -101,11 +101,11 @@ public class DefaultController extends HttpServlet {
     }
 
     private void accueilAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadJSP(urlAccueil, request, response);
+        loadJSP(urlAccueilTemplate, request, response);
     }
 
     private void do404(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadJSP(url404, request, response);
+        loadJSP(url404Template, request, response);
     }
 
     public void loadJSP(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

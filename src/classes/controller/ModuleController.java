@@ -20,16 +20,16 @@ import java.io.IOException;
 public class ModuleController extends HttpServlet {
 
     // URL
-    private String urlList;
-    private String urlUpdate;
-    private String url404;
+    private String urlListTemplate;
+    private String urlUpdateTemplate;
+    private String url404Template;
 
     @Override
     public void init() throws ServletException {
         // Récupération des URLs en paramètre du web.xml
-        urlList = getInitParameter("list");
-        urlUpdate = getInitParameter("update");
-        url404 = getInitParameter("404");
+        urlListTemplate = getInitParameter("list");
+        urlUpdateTemplate = getInitParameter("update");
+        url404Template = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
         GestionFactory.open();
@@ -75,7 +75,7 @@ public class ModuleController extends HttpServlet {
     }
 
     private void listAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadJSP(urlList, request, response);
+        loadJSP(urlListTemplate, request, response);
     }
     // -------------------------
 
@@ -86,7 +86,7 @@ public class ModuleController extends HttpServlet {
         String groupeId = request.getParameter("groupe");
 
         if (moduleId == null || groupeId == null) {
-            loadJSP(url404, request, response);
+            loadJSP(url404Template, request, response);
             return;
         }
 
@@ -94,7 +94,7 @@ public class ModuleController extends HttpServlet {
         Groupe groupe = GroupeDAO.find(Integer.parseInt(groupeId));
 
         if (module == null || groupe == null) {
-            loadJSP(url404, request, response);
+            loadJSP(url404Template, request, response);
             return;
         }
 
@@ -106,7 +106,7 @@ public class ModuleController extends HttpServlet {
         String ajouterNoteEtudiantControleAction = request.getParameter("ajouterNoteEtudiantControle");
 
 
-        loadJSP(url404, request, response);
+        loadJSP(url404Template, request, response);
     }
 
     private void createAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -138,7 +138,7 @@ public class ModuleController extends HttpServlet {
             return;
         }
 
-        loadJSP(urlUpdate, request, response);
+        loadJSP(urlUpdateTemplate, request, response);
     }
 
     private void deleteAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -157,7 +157,7 @@ public class ModuleController extends HttpServlet {
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadJSP(url404, request, response);
+        loadJSP(url404Template, request, response);
     }
 
     public void loadJSP(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

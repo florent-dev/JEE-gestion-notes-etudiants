@@ -23,20 +23,20 @@ import java.util.Date;
 public class GroupeController extends HttpServlet {
 
     // URL
-    private String urlList;
-    private String urlView;
-    private String urlUpdate;
-    private String urlEvaluation;
-    private String url404;
+    private String urlListTemplate;
+    private String urlViewTemplate;
+    private String urlUpdateTemplate;
+    private String urlEvaluationTemplate;
+    private String url404Template;
 
     @Override
     public void init() throws ServletException {
         // Récupération des URLs en paramètre du web.xml
-        urlList = getInitParameter("list");
-        urlView = getInitParameter("view");
-        urlUpdate = getInitParameter("update");
-        urlEvaluation = getInitParameter("viewEvaluation");
-        url404 = getInitParameter("404");
+        urlListTemplate = getInitParameter("list");
+        urlViewTemplate = getInitParameter("view");
+        urlUpdateTemplate = getInitParameter("update");
+        urlEvaluationTemplate = getInitParameter("viewEvaluation");
+        url404Template = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
         GestionFactory.open();
@@ -97,7 +97,7 @@ public class GroupeController extends HttpServlet {
     }
 
     private void listAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadJSP(urlList, request, response);
+        loadJSP(urlListTemplate, request, response);
     }
 
     private void viewAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,7 +117,7 @@ public class GroupeController extends HttpServlet {
 
         request.setAttribute("groupe", groupe);
 
-        loadJSP(urlView, request, response);
+        loadJSP(urlViewTemplate, request, response);
     }
 
     private void createAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -149,7 +149,7 @@ public class GroupeController extends HttpServlet {
             return;
         }
 
-        loadJSP(urlUpdate, request, response);
+        loadJSP(urlUpdateTemplate, request, response);
     }
 
     private void deleteAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -235,7 +235,7 @@ public class GroupeController extends HttpServlet {
             return;
         }
 
-        loadJSP(urlEvaluation, request, response);
+        loadJSP(urlEvaluationTemplate, request, response);
     }
 
     private void updateEvaluationAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -289,7 +289,7 @@ public class GroupeController extends HttpServlet {
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        loadJSP(url404, request, response);
+        loadJSP(url404Template, request, response);
     }
 
     public void loadJSP(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
