@@ -1,10 +1,8 @@
 <%@ page import="classes.entity.Etudiant" %>
-<%@ page import="classes.repository.EtudiantDAO" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="classes.repository.EvaluationDAO" %>
-<%@ page import="classes.repository.NoteDAO" %>
 <%@ page import="classes.entity.Note" %>
+<%@ page import="classes.repository.EtudiantDAO" %>
+<%@ page import="classes.repository.NoteDAO" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <jsp:useBean id="evaluation" class="classes.entity.Evaluation" scope="request" />
@@ -14,7 +12,7 @@
 <% String dateStrGB = new SimpleDateFormat("yyyy-MM-dd").format(evaluation.getDate()); %>
 <% String dateStrFR = new SimpleDateFormat("dd/MM/yyyy").format(evaluation.getDate()); %>
 
-<h2 class="display-4 text-white">Évaluation <%= evaluation.getNom() %></h2>
+<h2 class="display-4 text-white">Évaluation <%= evaluation.getModule().getNom() %></h2>
 
 <div class="row text-white">
 
@@ -50,7 +48,7 @@
                                 Note noteEtudiant = NoteDAO.findByEtudiantAndEvaluation(etudiant, evaluation);
                                 String noteStr = (noteEtudiant != null) ? String.valueOf(noteEtudiant.getNote()) : "";
                             %>
-                            <input class="form-control" min="0" max="20" name="note<%= etudiant.getId() %>" type="number" placeholder="Non renseignée" value="<%= noteStr %>" />
+                            <input class="form-control" min="0" max="20" name="note<%= etudiant.getId() %>" step="0.01" type="number" placeholder="Non renseignée" value="<%= noteStr %>" />
                         </td>
                     </tr>
                     <% } %>

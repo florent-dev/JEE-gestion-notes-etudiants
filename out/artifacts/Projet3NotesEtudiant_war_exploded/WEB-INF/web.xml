@@ -81,6 +81,10 @@
             <param-value>/WEB-INF/JSP/enseignant/list.jsp</param-value>
         </init-param>
         <init-param>
+            <param-name>view</param-name>
+            <param-value>/WEB-INF/JSP/enseignant/view.jsp</param-value>
+        </init-param>
+        <init-param>
             <param-name>update</param-name>
             <param-value>/WEB-INF/JSP/enseignant/update.jsp</param-value>
         </init-param>

@@ -17,7 +17,7 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <table class="table table-striped table-borderless">
+            <table class="table">
                 <tr>
                     <th>Liste des enseignants</th>
                     <th></th>
@@ -31,9 +31,10 @@
                         </a>
                     </td>
                     <td class="text-right">
-                        <a href="<%= application.getContextPath() %>/enseignant/delete?id=<%= enseignant.getId() %>">
-                            <i class="fa fa-trash fa-fw text-primary mt-1"></i>
-                        </a>
+                        <a href="<%= application.getContextPath() %>/enseignant/update?id=<%= enseignant.getId() %>"
+                        ><i class="fa fa-pencil fa-fw text-primary mt-1"></i></a>
+                        <a href="<%= application.getContextPath() %>/enseignant/delete?id=<%= enseignant.getId() %>"
+                        ><i class="fa fa-trash fa-fw text-primary mt-1"></i></a>
                     </td>
                 </tr>
                 <% } %>
@@ -46,7 +47,7 @@
             <form method="post" action="<%= application.getContextPath() %>/enseignant/create">
                 <input type="text" class="form-control mb-2" name="nomEnseignant" placeholder="Nom" required />
                 <input type="text" class="form-control mb-2" name="prenomEnseignant" placeholder="Prénom" required />
-                <input type="submit" class="btn btn-info" name="ajouterEnseignant" value="Ajouter" />
+                <input type="submit" class="btn btn-info" name="ajouterEnseignant" value="Ajouter un enseignant" />
             </form>
         </div>
     </div>
