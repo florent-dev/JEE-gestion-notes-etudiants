@@ -50,7 +50,7 @@
                                 Note noteEtudiant = NoteDAO.findByEtudiantAndEvaluation(etudiant, evaluation);
                                 String noteStr = (noteEtudiant != null) ? String.valueOf(noteEtudiant.getNote()) : "";
                             %>
-                            <input class="form-control" min="0" max="20" name="notes[<%= etudiant %>]" type="number" placeholder="Non renseignée" value="<%= noteStr %>" />
+                            <input class="form-control" min="0" max="20" name="note<%= etudiant.getId() %>" type="number" placeholder="Non renseignée" value="<%= noteStr %>" />
                         </td>
                     </tr>
                     <% } %>

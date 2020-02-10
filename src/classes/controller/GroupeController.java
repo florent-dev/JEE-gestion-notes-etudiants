@@ -1,13 +1,8 @@
 package classes.controller;
 
-import classes.entity.Etudiant;
-import classes.entity.Evaluation;
-import classes.entity.Groupe;
+import classes.entity.*;
 import classes.entity.Module;
-import classes.repository.EtudiantDAO;
-import classes.repository.EvaluationDAO;
-import classes.repository.GroupeDAO;
-import classes.repository.ModuleDAO;
+import classes.repository.*;
 import classes.utils.ControllerUtils;
 import classes.utils.GestionFactory;
 
@@ -19,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -258,7 +254,21 @@ public class GroupeController extends HttpServlet {
             return;
         }
 
-        loadJSP(urlEvaluation, request, response);
+        int idEvaluationForm = ControllerUtils.parseRequestId(request.getParameter("idEvaluation"));
+        String nomEvaluationm = request.getParameter("nomEvaluation");
+        String descriptionEvaluation = request.getParameter("descriptionEvaluation");
+        String dateEvaluation = request.getParameter("dateEvaluation");
+
+        // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant
+        for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(evaluation.getGroupe())) {
+            Note notesEtudiantList = NoteDAO.findByEtudiantAndEvaluation(etudiant, evaluation);
+            String idParameter = "note" + etudiant.getId();
+            if (request.getParameter(idParameter) != null || request.getParameter(idParameter) == "") {
+                int noteEtu = ControllerUtils.parseRequestId(request.getParameter(idParameter));
+                System.out.println(noteEtu);
+            }
+        }
+
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
