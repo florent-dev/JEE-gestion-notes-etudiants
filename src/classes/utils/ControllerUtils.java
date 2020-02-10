@@ -13,6 +13,16 @@ public class ControllerUtils {
     }
 
     /**
+     * Parse request id, returns 0 if incorrect.
+     * @param nb -
+     * @return parsed id
+     */
+    public static float parseNote(String nb) {
+        // Float.min retourne le plus petit nombre (si > 20) et Float.max le plus grand (si < 0).
+        return (isFloat(nb)) ? Float.max(Float.min(Float.parseFloat(nb), 20), 0) : 0;
+    }
+
+    /**
      * Check if a string is numeric.
      * @param strId -
      * @return bool
@@ -31,15 +41,12 @@ public class ControllerUtils {
         return true;
     }
 
-    /**
-     * Get the page's name from an url such as "/delete?param=stuff
-     * @param fullRoute -
-     * @return realFileName
-     */
-    public static void getPageName(String fullRoute) {
-        // analyzing the string
-        //String[] tokensVal = fullRoute.split("?");
-
-        //return tokensVal[0];
+    public static boolean isFloat(String strNb) {
+        try {
+            Float.parseFloat(strNb);
+            return true;
+        } catch(NumberFormatException e) {
+            return false;
+        }
     }
 }

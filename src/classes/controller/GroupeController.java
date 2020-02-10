@@ -261,14 +261,31 @@ public class GroupeController extends HttpServlet {
 
         // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant
         for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(evaluation.getGroupe())) {
-            Note notesEtudiantList = NoteDAO.findByEtudiantAndEvaluation(etudiant, evaluation);
             String idParameter = "note" + etudiant.getId();
-            if (request.getParameter(idParameter) != null || request.getParameter(idParameter) == "") {
-                int noteEtu = ControllerUtils.parseRequestId(request.getParameter(idParameter));
-                System.out.println(noteEtu);
+            String noteParam = request.getParameter(idParameter);
+
+            // Récupération de la note.
+            Note noteInstance = NoteDAO.findByEtudiantAndEvaluation(etudiant, evaluation);
+
+            // La note de l'étudiant est renseignée, on la créé ou màj.
+            // Autrement on retire la note si elle existait.
+            if (noteParam != null && noteParam.length() > 0) {
+                float noteParamParsed = ControllerUtils.parseNote(noteParam);
+                if (noteInstance == null) {
+                    NoteDAO.create(noteParamParsed, etudiant, evaluation);
+                } else {
+                    noteInstance.setNote(noteParamParsed);
+                    NoteDAO.update(noteInstance);
+                }
+                System.out.println(etudiant.getId() + ": " + noteParam);
+            } else {
+                if (noteInstance != null) {
+                    NoteDAO.remove(noteInstance);
+                }
             }
         }
 
+        response.sendRedirect(request.getContextPath() + "/groupe/view?id=" + evaluation.getGroupe().getId());
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
