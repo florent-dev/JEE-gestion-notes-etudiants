@@ -84,7 +84,7 @@ public class DefaultController extends HttpServlet {
 
         // On récupère l'action à exécuter
         String action = request.getPathInfo();
-        System.out.println(action);
+        System.out.println("action default:" + action);
 
         if (action == null) {
             action = "/index";
@@ -92,6 +92,7 @@ public class DefaultController extends HttpServlet {
 
         // Accès aux différentes pages, pas de .jsp dans le nom de l'action
         switch (action) {
+            case "/":
             case "/index":
                 accueilAction(request, response);
                 break;

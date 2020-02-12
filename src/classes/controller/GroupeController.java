@@ -1,7 +1,7 @@
 package classes.controller;
 
-import classes.entity.*;
 import classes.entity.Module;
+import classes.entity.*;
 import classes.repository.*;
 import classes.utils.ControllerUtils;
 import classes.utils.GestionFactory;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

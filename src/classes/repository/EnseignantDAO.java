@@ -10,8 +10,6 @@ import java.util.List;
 public class EnseignantDAO {
 
     public static Enseignant find(int id) {
-
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
         Enseignant enseignant = em.find(Enseignant.class, id);
         em.close();
@@ -20,43 +18,27 @@ public class EnseignantDAO {
     }
 
     public static Enseignant create(String prenom, String nom) {
-
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
-
-        //
         em.getTransaction().begin();
 
-        // create new Enseignant
         Enseignant enseignant = new Enseignant();
         enseignant.setPrenom(prenom);
         enseignant.setNom(nom);
         em.persist(enseignant);
 
-        // Commit
         em.getTransaction().commit();
-
-        // Close the entity manager
         em.close();
 
         return enseignant;
     }
 
     public static Enseignant update(Enseignant enseignant) {
-
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
-
-        //
         em.getTransaction().begin();
 
-        // Attacher une entité persistante (Enseignant) à l’EntityManager courant  pour réaliser la modification
         em.merge(enseignant);
 
-        // Commit
         em.getTransaction().commit();
-
-        // Close the entity manager
         em.close();
 
         return enseignant;

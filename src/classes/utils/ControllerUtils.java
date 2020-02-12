@@ -1,5 +1,8 @@
 package classes.utils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
 public class ControllerUtils {
 
     /**
@@ -48,5 +51,9 @@ public class ControllerUtils {
         } catch(NumberFormatException e) {
             return false;
         }
+    }
+
+    public static String formatText(String text) {
+        return Arrays.toString(text.getBytes(StandardCharsets.UTF_8));
     }
 }

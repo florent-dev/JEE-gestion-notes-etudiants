@@ -10,7 +10,6 @@ import java.util.List;
 public class ModuleDAO {
 
     public static Module find(int id) {
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
         Module module = em.find(Module.class, id);
         em.close();

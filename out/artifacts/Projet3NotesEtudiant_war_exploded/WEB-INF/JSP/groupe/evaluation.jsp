@@ -12,7 +12,7 @@
 <% String dateStrGB = new SimpleDateFormat("yyyy-MM-dd").format(evaluation.getDate()); %>
 <% String dateStrFR = new SimpleDateFormat("dd/MM/yyyy").format(evaluation.getDate()); %>
 
-<h2 class="display-4 text-white">Évaluation <%= evaluation.getModule().getNom() %></h2>
+<h2 class="display-4 text-white">Évaluation en <%= evaluation.getModule().getNom() %></h2>
 
 <div class="row text-white">
 

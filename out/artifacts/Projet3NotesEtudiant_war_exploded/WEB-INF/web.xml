@@ -26,7 +26,7 @@
 
     <!-- GENERAL CONTROLLER SERVLET -->
     <servlet>
-        <servlet-name>defaultController</servlet-name>
+        <servlet-name>default</servlet-name>
         <servlet-class>classes.controller.DefaultController</servlet-class>
         <init-param>
             <param-name>index</param-name>
@@ -36,13 +36,13 @@
             <param-name>404</param-name>
             <param-value>/WEB-INF/JSP/404.jsp</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>defaultController</servlet-name>
+        <servlet-name>default</servlet-name>
         <url-pattern>/</url-pattern>
-        <url-pattern>/index</url-pattern>
-        <url-pattern>/404</url-pattern>
+        <url-pattern>/home/*</url-pattern>
     </servlet-mapping>
 
     <!-- ETUDIANT CONTROLLER SERVLET -->
@@ -161,9 +161,36 @@
         <url-pattern>/module/*</url-pattern>
     </servlet-mapping>
 
+    <!-- ABSENCE CONTROLLER SERVLET -->
+    <servlet>
+        <servlet-name>absenceController</servlet-name>
+        <servlet-class>classes.controller.AbsenceController</servlet-class>
+        <init-param>
+            <param-name>index</param-name>
+            <param-value>/WEB-INF/JSP/absence/index.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>viewGroupe</param-name>
+            <param-value>/WEB-INF/JSP/absence/viewGroupe.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>appelGroupe</param-name>
+            <param-value>/WEB-INF/JSP/absence/appelGroupe.jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>404</param-name>
+            <param-value>/WEB-INF/JSP/404.jsp</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>absenceController</servlet-name>
+        <url-pattern>/absence/*</url-pattern>
+    </servlet-mapping>
+
     <!--  Fichiers d'accueil -->
     <welcome-file-list>
-        <welcome-file>/</welcome-file>
+        <welcome-file>/home/</welcome-file>
     </welcome-file-list>
 
 </web-app>
