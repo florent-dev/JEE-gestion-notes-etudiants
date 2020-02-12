@@ -2,7 +2,6 @@ package classes.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 public class Absence implements Serializable {
@@ -13,29 +12,20 @@ public class Absence implements Serializable {
     @Column(nullable = false)
     private boolean justifie;
 
-    @Column(nullable = false)
-    private Date date;
+    @OneToOne
+    @JoinColumn(name = "appel_id")
+    private Appel appel;
 
     @OneToOne
     @JoinColumn(name = "etudiant_id")
     private Etudiant etudiant;
 
-    @OneToOne
-    @JoinColumn(name = "module_id")
-    private Module module;
-
-    @OneToOne
-    @JoinColumn(name = "groupe_id")
-    private Groupe groupe;
-
-    public Absence(Integer id, Boolean justifie, Date date, Etudiant etudiant, Groupe groupe, Module module) {
+    public Absence(Integer id, Boolean justifie, Appel appel, Etudiant etudiant) {
         super();
         this.id = id;
         this.justifie = justifie;
-        this.date = date;
+        this.appel = appel;
         this.etudiant = etudiant;
-        this.module = module;
-        this.groupe = groupe;
     }
 
     public Absence() { super(); }
@@ -44,9 +34,7 @@ public class Absence implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void setId(Integer id) { this.id = id; }
 
     public boolean isJustifie() {
         return justifie;
@@ -56,13 +44,9 @@ public class Absence implements Serializable {
         this.justifie = justifie;
     }
 
-    public Date getDate() {
-        return date;
-    }
+    public Appel getAppel() { return appel; }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setAppel(Appel appel) { this.appel = appel; }
 
     public Etudiant getEtudiant() {
         return etudiant;
@@ -70,21 +54,5 @@ public class Absence implements Serializable {
 
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
-    }
-
-    public Module getModule() {
-        return module;
-    }
-
-    public void setModule(Module module) {
-        this.module = module;
-    }
-
-    public Groupe getGroupe() {
-        return groupe;
-    }
-
-    public void setGroupe(Groupe groupe) {
-        this.groupe = groupe;
     }
 }

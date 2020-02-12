@@ -81,7 +81,11 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <table class="table table-striped table-borderless">
+            <a href="<%= application.getContextPath() %>/absence/appelGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Faire l'appel</a>
+        </div>
+
+        <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <table class="table table-sm">
                 <tr>
                     <th>Liste des étudiants</th>
                 </tr>
@@ -96,8 +100,6 @@
                 </tr>
                 <% } %>
             </table>
-
-            <a href="<%= application.getContextPath() %>/groupe/absence" class="btn btn-outline-info">Faire l'appel</a>
         </div>
     </div>
 

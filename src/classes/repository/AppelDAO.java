@@ -1,7 +1,8 @@
 package classes.repository;
 
-import classes.entity.*;
-import classes.entity.Absence;
+import classes.entity.Appel;
+import classes.entity.Enseignant;
+import classes.entity.Groupe;
 import classes.entity.Module;
 import classes.utils.GestionFactory;
 
@@ -10,53 +11,54 @@ import javax.persistence.Query;
 import java.util.Date;
 import java.util.List;
 
-public class AbsenceDAO {
+public class AppelDAO {
 
-    public static Absence find(int id) {
+    public static Appel find(int id) {
 
         // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
-        Absence absence = em.find(Absence.class, id);
+        Appel absence = em.find(Appel.class, id);
         em.close();
 
         return absence;
     }
 
-    public static Absence create(Boolean justifie, Date date, Appel appel, Etudiant etudiant) {
+    public static Appel create(Date date, Enseignant enseignant, Groupe groupe, Module module) {
         EntityManager em = GestionFactory.factory.createEntityManager();
         em.getTransaction().begin();
 
-        // create new Absence
-        Absence absence = new Absence();
-        absence.setJustifie(justifie);
-        absence.setAppel(appel);
-        absence.setEtudiant(etudiant);
-        em.persist(absence);
+        // create new Appel
+        Appel appel = new Appel();
+        appel.setDate(date);
+        appel.setEnseignant(enseignant);
+        appel.setGroupe(groupe);
+        appel.setModule(module);
+        em.persist(appel);
 
         em.getTransaction().commit();
         em.close();
 
-        return absence;
+        return appel;
     }
 
-    public static Absence update(Absence absence) {
+    public static Appel update(Appel appel) {
         EntityManager em = GestionFactory.factory.createEntityManager();
         em.getTransaction().begin();
 
-        em.merge(absence);
+        em.merge(appel);
 
         em.getTransaction().commit();
         em.close();
 
-        return absence;
+        return appel;
     }
 
-    public static void remove(Absence absence) {
+    public static void remove(Appel appel) {
         EntityManager em = GestionFactory.factory.createEntityManager();
         em.getTransaction().begin();
 
-        absence = em.find(Absence.class, absence.getId());
-        em.remove(absence);
+        appel = em.find(Appel.class, appel.getId());
+        em.remove(appel);
 
         em.getTransaction().commit();
         em.close();
@@ -66,7 +68,7 @@ public class AbsenceDAO {
         EntityManager em = GestionFactory.factory.createEntityManager();
         em.getTransaction().begin();
 
-        em.createQuery("DELETE FROM Absence AS e WHERE e.id = :id")
+        em.createQuery("DELETE FROM Appel AS e WHERE e.id = :id")
                 .setParameter("id", id)
                 .executeUpdate();
 
@@ -75,27 +77,27 @@ public class AbsenceDAO {
     }
 
     // Retourne l'ensemble des Absences
-    public static List<Absence> getAll() {
+    public static List<Appel> getAll() {
         EntityManager em = GestionFactory.factory.createEntityManager();
 
-        Query q = em.createQuery("SELECT e FROM Absence e");
+        Query q = em.createQuery("SELECT e FROM Appel e");
 
         @SuppressWarnings("unchecked")
-        List<Absence> listAbsence = q.getResultList();
+        List<Appel> listAppels = q.getResultList();
 
-        return listAbsence;
+        return listAppels;
     }
 
-    // Retourne l'ensemble des Absences d'un appel donné
-    public static List<Absence> getAllByAppel(Appel appel) {
+    // Retourne l'ensemble des Absences d'un groupe donné
+    public static List<Appel> getAllByGroupe(Groupe groupe) {
         EntityManager em = GestionFactory.factory.createEntityManager();
 
-        Query q = em.createQuery("SELECT e FROM Absence e WHERE e.appel = :appel").setParameter("appel", appel);
+        Query q = em.createQuery("SELECT e FROM Appel e WHERE e.groupe = :groupe ORDER BY e.date DESC").setParameter("groupe", groupe);
 
         @SuppressWarnings("unchecked")
-        List<Absence> listAbsence = q.getResultList();
+        List<Appel> listAppels = q.getResultList();
 
-        return listAbsence;
+        return listAppels;
     }
 
 }

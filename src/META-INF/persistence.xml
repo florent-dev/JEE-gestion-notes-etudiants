@@ -12,6 +12,7 @@
 
         <!-- Classes persistées - liées à tes tables de la base de données -->
         <class>classes.entity.Absence</class>
+        <class>classes.entity.Appel</class>
         <class>classes.entity.Enseignant</class>
         <class>classes.entity.Etudiant</class>
         <class>classes.entity.Evaluation</class>
@@ -49,6 +50,7 @@
 
         <!-- Classes persistées - liées à tes tables de la base de données -->
         <class>classes.entity.Absence</class>
+        <class>classes.entity.Appel</class>
         <class>classes.entity.Enseignant</class>
         <class>classes.entity.Etudiant</class>
         <class>classes.entity.Evaluation</class>
@@ -87,6 +89,7 @@
 
         <!-- Classes persistées - liées à tes tables de la base de données -->
         <class>classes.entity.Absence</class>
+        <class>classes.entity.Appel</class>
         <class>classes.entity.Enseignant</class>
         <class>classes.entity.Etudiant</class>
         <class>classes.entity.Evaluation</class>
