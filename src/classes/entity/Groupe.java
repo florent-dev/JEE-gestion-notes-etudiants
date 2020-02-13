@@ -1,5 +1,7 @@
 package classes.entity;
 
+import classes.repository.ModuleDAO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,7 +50,16 @@ public class Groupe implements Serializable {
     }
 
     public void addModule(Module module) {
-        modules.add(module);
+        this.modules.add(module);
+    }
+
+    public void removeModule(Module module) {
+        for (Module m: getModules()) {
+            if (m.getNom().equals(module.getNom())) {
+                this.getModules().remove(m);
+                return;
+            }
+        }
     }
 
     public List<Module> getModules() {

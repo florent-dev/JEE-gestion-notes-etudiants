@@ -20,11 +20,16 @@
             <table class="table table-striped table-borderless">
                 <tr>
                     <th>Liste des modules</th>
+                    <th></th>
                 </tr>
                 <% for (Module module: listeModules) { %>
                 <tr>
                     <td>
                         <%= module.getNom() %>
+                    </td>
+                    <td class="float-right">
+                        <a href="<%= application.getContextPath() %>/module/update?id=<%= module.getId() %>"><i class="fa fa-pencil fa-fw text-primary mt-1"></i></a>
+                        <a href="<%= application.getContextPath() %>/module/delete?id=<%= module.getId() %>"><i class="fa fa-trash fa-fw text-primary mt-1"></i></a>
                     </td>
                 </tr>
                 <% } %>
@@ -34,9 +39,9 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <form action="<%= application.getContextPath() %>/do/modules">
+            <form action="<%= application.getContextPath() %>/module/create">
                 <input type="text" name="nomModule" class="form-control mb-2" placeholder="Nom du module" />
-                <input type="submit" name="ajouterModule" class="btn btn-info" value="Ajouter" />
+                <input type="submit" class="btn btn-info" value="Ajouter" />
             </form>
         </div>
     </div>

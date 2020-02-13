@@ -54,7 +54,7 @@ public class GroupeController extends HttpServlet {
 
         // On récupère l'action à exécuter
         String action = request.getPathInfo();
-        System.out.println(action);
+        //System.out.println(action);
 
         if (action == null || action.equals("/")) {
             action = "/list";
@@ -80,6 +80,9 @@ public class GroupeController extends HttpServlet {
                 break;
             case "/ajouterModule":
                 ajouterModuleAction(request, response);
+                break;
+            case "/retirerModule":
+                retirerModuleAction(request, response);
                 break;
             case "/createEvaluation":
                 createEvaluationAction(request, response);
@@ -169,7 +172,7 @@ public class GroupeController extends HttpServlet {
     private void ajouterModuleAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Ajouter un module au groupe
         int groupeId = ControllerUtils.parseRequestId(request.getParameter("id"));
-        int moduleId = ControllerUtils.parseRequestId(request.getParameter("ajouterModuleAction"));
+        int moduleId = ControllerUtils.parseRequestId(request.getParameter("ajouterModuleAuGroupe"));
 
         if (groupeId != 0 && moduleId != 0) {
             Groupe groupe = GroupeDAO.find(groupeId);
@@ -182,12 +185,36 @@ public class GroupeController extends HttpServlet {
                 GroupeDAO.update(groupe);
                 ModuleDAO.update(module);
 
-                response.sendRedirect(request.getContextPath() + "/groupe/?id=" + groupe.getId());
+                response.sendRedirect(request.getContextPath() + "/groupe/view?id=" + groupe.getId());
                 return;
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/groupe/list");
+        response.sendRedirect(request.getContextPath() + "/groupe/");
+    }
+
+    private void retirerModuleAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Retirer un module au groupe
+        int groupeId = ControllerUtils.parseRequestId(request.getParameter("id"));
+        int moduleId = ControllerUtils.parseRequestId(request.getParameter("mid"));
+
+        if (groupeId != 0 && moduleId != 0) {
+            Groupe groupe = GroupeDAO.find(groupeId);
+            Module module = ModuleDAO.find(moduleId);
+
+            if (groupe != null && module != null) {
+                groupe.removeModule(module);
+                module.removeGroupe(groupe);
+
+                ModuleDAO.update(module);
+                GroupeDAO.update(groupe);
+
+                response.sendRedirect(request.getContextPath() + "/groupe/view?id=" + groupe.getId());
+                return;
+            }
+        }
+
+        response.sendRedirect(request.getContextPath() + "/groupe/");
     }
 
     private void createEvaluationAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -215,7 +242,7 @@ public class GroupeController extends HttpServlet {
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "/groupe/list");
+        response.sendRedirect(request.getContextPath() + "/groupe/");
     }
 
     private void manageEvaluationAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

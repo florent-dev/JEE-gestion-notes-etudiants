@@ -4,8 +4,8 @@ import classes.entity.Groupe;
 import classes.entity.Module;
 import classes.repository.GroupeDAO;
 import classes.repository.ModuleDAO;
-import classes.utils.GestionFactory;
 import classes.utils.ControllerUtils;
+import classes.utils.GestionFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -66,11 +66,14 @@ public class ModuleController extends HttpServlet {
             case "/create":
                 createAction(request, response);
                 break;
+            case "/update":
+                updateAction(request, response);
+                break;
             case "/delete":
                 deleteAction(request, response);
                 break;
             default:
-                listAction(request, response);
+                notFoundAction(request, response);
         }
     }
 
@@ -116,7 +119,7 @@ public class ModuleController extends HttpServlet {
             ModuleDAO.create(nomModule);
         }
 
-        response.sendRedirect(request.getContextPath() + "/module/list");
+        response.sendRedirect(request.getContextPath() + "/module/");
     }
 
     private void updateAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -125,18 +128,26 @@ public class ModuleController extends HttpServlet {
 
         // Protection sur l'idEtudiant.
         if (idModule == 0) {
-            response.sendRedirect(request.getContextPath() + "/module/list");
+            response.sendRedirect(request.getContextPath() + "/module/");
+            return;
+        }
+
+        Module module = ModuleDAO.find(idModule);
+
+        if (module == null) {
+            response.sendRedirect(request.getContextPath() + "/module/");
             return;
         }
 
         if (nomModule != null) {
-            Module module = ModuleDAO.find(idModule);
             module.setNom(nomModule);
             ModuleDAO.update(module);
 
-            response.sendRedirect(request.getContextPath() + "/module/list");
+            response.sendRedirect(request.getContextPath() + "/module/");
             return;
         }
+
+        request.setAttribute("module", module);
 
         loadJSP(urlUpdateTemplate, request, response);
     }
@@ -150,10 +161,9 @@ public class ModuleController extends HttpServlet {
             if (module != null) {
                 ModuleDAO.remove(module);
             }
-
         }
 
-        response.sendRedirect(request.getContextPath() + "/etudiant/list");
+        response.sendRedirect(request.getContextPath() + "/module/");
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

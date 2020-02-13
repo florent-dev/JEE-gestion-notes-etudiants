@@ -1,8 +1,8 @@
 package classes.repository;
 
 
-import classes.utils.GestionFactory;
 import classes.entity.Groupe;
+import classes.utils.GestionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

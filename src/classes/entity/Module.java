@@ -22,6 +22,7 @@ public class Module implements Serializable {
     )
     private List<Groupe> groupes = new ArrayList<>();
 
+    public Module() { super(); }
 
     public Integer getId() {
         return id;
@@ -43,9 +44,21 @@ public class Module implements Serializable {
         return groupes;
     }
 
+    public void setGroupes(List<Groupe> groupeList) {
+        this.groupes = groupeList;
+    }
+
     public void addGroupe(Groupe groupe) {
         groupes.add(groupe);
-        //groupe.getModules().add(this);
+    }
+
+    public void removeGroupe(Groupe groupe) {
+        for (Groupe g: getGroupes()) {
+            if (g.getNom().equals(groupe.getNom())) {
+                this.getGroupes().remove(g);
+                return;
+            }
+        }
     }
 
     @Override

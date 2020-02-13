@@ -59,6 +59,7 @@
 
                     </td>
                     <td class="text-right">
+                        <a href="<%= application.getContextPath() %>/groupe/retirerModule?id=<%= groupe.getId() %>&mid=<%= module.getId() %>"><i class="fa fa-trash fa-fw text-primary mt-1"></i></a>
                     </td>
                 </tr>
                 <% } %>
