@@ -17,9 +17,10 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Liste des enseignants</b></p>
             <table class="table">
                 <tr>
-                    <th>Liste des enseignants</th>
+                    <th>Enseignant</th>
                     <th></th>
                 </tr>
                 <% for (Enseignant enseignant: listeEnseignants) { %>

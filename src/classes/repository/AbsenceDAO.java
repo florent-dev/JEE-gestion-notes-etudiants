@@ -93,9 +93,38 @@ public class AbsenceDAO {
         Query q = em.createQuery("SELECT e FROM Absence e WHERE e.appel = :appel").setParameter("appel", appel);
 
         @SuppressWarnings("unchecked")
-        List<Absence> listAbsence = q.getResultList();
+        List<Absence> listAbsences = q.getResultList();
 
-        return listAbsence;
+        return listAbsences;
+    }
+
+    // Retourne l'ensemble des Absences d'un appel donné
+    public static List<Absence> getAllByEtudiant(Etudiant etudiant) {
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        Query q = em.createQuery("SELECT e FROM Absence e WHERE e.etudiant = :etudiant").setParameter("etudiant", etudiant);
+
+        @SuppressWarnings("unchecked")
+        List<Absence> listAbsences = q.getResultList();
+
+        return listAbsences;
+    }
+
+    // Retourne, si elle existe, l'absence d'un étudiant sur un appel existant.
+    public static Absence getAbsenceEtudiantSurUnAppel(Etudiant etudiant, Appel appel) {
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        Query q = em.createQuery("SELECT e FROM Absence e WHERE e.etudiant = :etudiant AND e.appel = :appel").setParameter("etudiant", etudiant).setParameter("appel", appel);
+
+        @SuppressWarnings("unchecked")
+        List<Absence> listAbsences = q.getResultList();
+
+        // On retourne le premier et normalement unique résultat.
+        if (listAbsences.size() > 0) {
+            return listAbsences.get(0);
+        }
+
+        return null;
     }
 
 }

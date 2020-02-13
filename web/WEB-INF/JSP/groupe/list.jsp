@@ -3,6 +3,7 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="classes.entity.*" %>
 <%@ page import="classes.repository.GroupeDAO" %>
+<%@ page import="classes.repository.EtudiantDAO" %>
 
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 
@@ -17,9 +18,11 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <table class="table table-striped table-borderless">
+            <p class="lead"><b>Liste des groupes</b></p>
+            <table class="table">
                 <tr>
-                    <th>Liste des groupes</th>
+                    <th>Groupe</th>
+                    <th class="text-center">Nb étudiants</th>
                     <th></th>
                 </tr>
                 <% for (Groupe groupe: listeGroupes) { %>
@@ -28,6 +31,9 @@
                         <a href="<%= application.getContextPath() %>/groupe/view?id=<%= groupe.getId() %>">
                             <%= groupe.getNom() %>
                         </a>
+                    </td>
+                    <td class="text-center">
+                        <%= EtudiantDAO.getNbEtudiantsByGroupe(groupe) %>
                     </td>
                     <td class="text-right">
                         <a href="<%= application.getContextPath() %>/groupe/update?id=<%= groupe.getId() %>"><i class="fa fa-pencil fa-fw text-primary mt-1"></i></a>

@@ -1,8 +1,6 @@
 package classes.controller;
 
-import classes.entity.Appel;
-import classes.entity.Etudiant;
-import classes.entity.Groupe;
+import classes.entity.*;
 import classes.entity.Module;
 import classes.repository.*;
 import classes.utils.ControllerUtils;
@@ -26,6 +24,7 @@ public class AbsenceController extends HttpServlet {
     private String urlIndexTemplate;
     private String urlViewGroupeTemplate;
     private String urlAppelGroupeTemplate;
+    private String urlUpdateAppelGroupeTemplate;
     private String url404Template;
 
     @Override
@@ -34,6 +33,7 @@ public class AbsenceController extends HttpServlet {
         urlIndexTemplate = getInitParameter("index");
         urlViewGroupeTemplate = getInitParameter("viewGroupe");
         urlAppelGroupeTemplate = getInitParameter("appelGroupe");
+        urlUpdateAppelGroupeTemplate = getInitParameter("updateAppelGroupe");
         url404Template = getInitParameter("404");
 
         // Création de la factory permettant la création d'EntityManager (gestion des transactions)
@@ -70,6 +70,9 @@ public class AbsenceController extends HttpServlet {
                 break;
             case "/appelGroupe":
                 appelGroupeAction(request, response);
+                break;
+            case "/updateAppelGroupe":
+                updateAppelGroupeAction(request, response);
                 break;
             default:
                 notFoundAction(request, response);
@@ -118,9 +121,6 @@ public class AbsenceController extends HttpServlet {
         int moduleAppelId = ControllerUtils.parseRequestId(request.getParameter("moduleAppel"));
         String dateAppel = request.getParameter("dateAppel");
         String dateTimeAppel = request.getParameter("dateTimeAppel");
-        System.out.println(moduleAppelId);
-        System.out.println(dateAppel);
-        System.out.println(dateTimeAppel);
 
         // Si le formulaire de création a été envoyé.
         if (moduleAppelId != 0 && dateAppel != null && dateTimeAppel != null) {
@@ -143,28 +143,98 @@ public class AbsenceController extends HttpServlet {
                         if (absenceParam != null) {
                             Boolean absJustifiee = (Boolean.valueOf(absenceJustifieeParam));
                             AbsenceDAO.create(absJustifiee, date, appel, etudiant);
-                            System.out.println(etudiant.getId() + ": abs notée");
-                        } else {
-                            System.out.println(etudiant.getId() + "abs param null");
                         }
                     }
 
                 } catch (Exception e) {
-                    System.out.println(e);
+                    //System.out.println(e);
                 }
 
                 response.sendRedirect(request.getContextPath() + "/absence/viewGroupe?id=" + groupe.getId());
                 return;
             }
-
-            System.out.println("module pas trouvé derp");
         }
-
-        System.out.println("formu alakon ohno");
 
         request.setAttribute("groupe", groupe);
 
         loadJSP(urlAppelGroupeTemplate, request, response);
+    }
+
+    private void updateAppelGroupeAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int appelId = ControllerUtils.parseRequestId(request.getParameter("id"));
+
+        if (appelId == 0) {
+            loadJSP(url404Template, request, response);
+            return;
+        }
+
+        Appel appel = AppelDAO.find(appelId);
+
+        if (appel == null) {
+            loadJSP(url404Template, request, response);
+            return;
+        }
+
+        // Partie formulaire soumis. On récolte les supposées informations.
+        int moduleAppelId = ControllerUtils.parseRequestId(request.getParameter("moduleAppel"));
+        String dateAppel = request.getParameter("dateAppel");
+        String dateTimeAppel = request.getParameter("dateTimeAppel");
+
+        // Si le formulaire de création a été envoyé.
+        if (moduleAppelId != 0 && dateAppel != null && dateTimeAppel != null) {
+            Module module = ModuleDAO.find(moduleAppelId);
+
+            if (module != null) {
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateAppel + " " + dateTimeAppel);
+                    appel.setModule(module);
+                    appel.setDate(date);
+
+                    // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant
+                    for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(appel.getGroupe())) {
+                        String idAbsParameter = "absence" + etudiant.getId();
+                        String absenceParam = request.getParameter(idAbsParameter);
+                        String idAbsJustifieeParameter = "absenceJustifiee" + etudiant.getId();
+                        String absenceJustifieeParam = request.getParameter(idAbsJustifieeParameter);
+
+                        // L'absence existe peut-être déjà.
+                        Absence absence = AbsenceDAO.getAbsenceEtudiantSurUnAppel(etudiant, appel);
+
+                        // Si absence au minimum est coché, on créé ou update l'absence.
+                        // Autrement on la retire dans le cas où l'absence existe.
+                        if (absenceParam != null) {
+                            Boolean absJustifiee = (Boolean.valueOf(absenceJustifieeParam));
+
+                            // Si l'absence existe, on l'update.
+                            // Autrement on la créé.
+                            if (absence != null) {
+                                absence.setJustifie(absJustifiee);
+                                AbsenceDAO.update(absence);
+                            } else {
+                                AbsenceDAO.create(absJustifiee, date, appel, etudiant);
+                            }
+
+                        } else {
+
+                            if (absence != null) {
+                                AbsenceDAO.remove(absence);
+                            }
+
+                        }
+                    }
+
+                } catch (Exception e) {
+                    //System.out.println(e);
+                }
+
+                response.sendRedirect(request.getContextPath() + "/absence/viewGroupe?id=" + appel.getGroupe().getId());
+                return;
+            }
+        }
+
+        request.setAttribute("appel", appel);
+
+        loadJSP(urlUpdateAppelGroupeTemplate, request, response);
     }
 
     private void notFoundAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

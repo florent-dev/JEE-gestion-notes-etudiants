@@ -22,11 +22,8 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Liste des appels</b></p>
             <table class="table">
-                <tr>
-                    <th>Liste des appels</th>
-                </tr>
-
                 <% if (listeAppels.size() == 0) { %>
                 <tr>
                     <td>Aucun appel trouvé.</td>

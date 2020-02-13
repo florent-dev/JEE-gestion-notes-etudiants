@@ -19,9 +19,10 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <table class="table table-striped table-borderless">
+            <p class="lead"><b>Liste des étudiants</b></p>
+            <table class="table">
                 <tr>
-                    <th>Liste des étudiants</th>
+                    <th>Étudiant</th>
                     <th>Groupe</th>
                     <th></th>
                 </tr>

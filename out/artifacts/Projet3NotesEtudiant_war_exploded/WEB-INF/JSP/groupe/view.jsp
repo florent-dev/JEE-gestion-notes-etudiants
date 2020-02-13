@@ -26,11 +26,11 @@
 
     <div class="col-lg-7">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Modules d'enseignement</b></p>
             <table class="table">
                 <% for (Module module: groupeModules) { %>
                 <tr>
                     <td>
-
                         <div>
                             <%= module.getNom() %><br />
                             <% for (Evaluation evaluation: EvaluationDAO.getByGroupeAndModule(groupe, module)) { %>
@@ -82,14 +82,18 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <a href="<%= application.getContextPath() %>/absence/appelGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Faire l'appel</a>
+            <p class="lead"><b>Gestion des absences</b></p>
+            <table class="table table-borderless m-0">
+                <tr>
+                    <td><a href="<%= application.getContextPath() %>/absence/appelGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Faire l'appel</a></td>
+                    <td><a href="<%= application.getContextPath() %>/absence/viewGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Liste des appels</a></td>
+                </tr>
+            </table>
         </div>
 
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Liste des étudiants</b></p>
             <table class="table table-sm">
-                <tr>
-                    <th>Liste des étudiants</th>
-                </tr>
                 <% for (Etudiant etudiant: listeEtudiants) { %>
                 <tr>
                     <td>
@@ -101,6 +105,7 @@
                 </tr>
                 <% } %>
             </table>
+            <a href="<%= application.getContextPath() %>/etudiant/list" class="btn btn-outline-info w-100">Ajouter un étudiant</a>
         </div>
     </div>
 

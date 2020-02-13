@@ -158,4 +158,17 @@ public class EtudiantDAO {
         return listEtudiant;
     }
 
+    // Retourne l'ensemble des etudiants d'un groupe donné
+    public static Integer getNbEtudiantsByGroupe(Groupe groupe) {
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        // Recherche
+        Query q = em.createQuery("SELECT e FROM Etudiant e WHERE e.groupe = :groupe").setParameter("groupe", groupe);
+
+        @SuppressWarnings("unchecked")
+        List<Etudiant> etudiantList = q.getResultList();
+
+        return etudiantList.size();
+    }
+
 }

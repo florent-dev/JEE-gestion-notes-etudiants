@@ -178,6 +178,10 @@
             <param-value>/WEB-INF/JSP/absence/appelGroupe.jsp</param-value>
         </init-param>
         <init-param>
+            <param-name>updateAppelGroupe</param-name>
+            <param-value>/WEB-INF/JSP/absence/updateAppelGroupe.jsp</param-value>
+        </init-param>
+        <init-param>
             <param-name>404</param-name>
             <param-value>/WEB-INF/JSP/404.jsp</param-value>
         </init-param>
