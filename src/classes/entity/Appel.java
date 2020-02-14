@@ -3,6 +3,7 @@ package classes.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Appel implements Serializable {
@@ -24,6 +25,10 @@ public class Appel implements Serializable {
     @OneToOne
     @JoinColumn(name = "groupe_id")
     private Groupe groupe;
+
+    @OneToMany(cascade = {CascadeType.REMOVE})
+    @JoinColumn(name = "absence_id")
+    private List<Absence> absences;
 
     public Appel(Integer id, Date date, Enseignant enseignant, Groupe groupe, Module module) {
         super();

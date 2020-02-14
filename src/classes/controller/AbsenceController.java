@@ -57,7 +57,7 @@ public class AbsenceController extends HttpServlet {
         System.out.println(action);
 
         if (action == null || action.equals("/")) {
-            action = "/404";
+            action = "/index";
         }
 
         // Accès aux différentes pages, pas de .jsp dans le nom de l'action
@@ -142,7 +142,6 @@ public class AbsenceController extends HttpServlet {
                         String absenceParam = request.getParameter(idAbsParameter);
                         String idAbsJustifieeParameter = "absenceJustifiee" + etudiant.getId();
                         String absenceJustifieeParam = request.getParameter(idAbsJustifieeParameter);
-                        System.out.println("absenceJustifieeParam " + absenceJustifieeParam);
 
                         // Si absence est coché, on créé l'absence.
                         if (absenceParam != null) {
@@ -204,7 +203,6 @@ public class AbsenceController extends HttpServlet {
                         String absenceParam = request.getParameter(idAbsParameter);
                         String idAbsJustifieeParameter = "absenceJustifiee" + etudiant.getId();
                         String absenceJustifieeParam = request.getParameter(idAbsJustifieeParameter);
-                        System.out.println(absenceJustifieeParam);
 
                         // L'absence existe peut-être déjà.
                         Absence absence = AbsenceDAO.getAbsenceEtudiantSurUnAppel(etudiant, appel);
@@ -233,7 +231,7 @@ public class AbsenceController extends HttpServlet {
                     }
 
                 } catch (Exception e) {
-                    //System.out.println(e);
+                    System.out.println(e);
                 }
 
                 response.sendRedirect(request.getContextPath() + "/absence/viewGroupe?id=" + appel.getGroupe().getId());

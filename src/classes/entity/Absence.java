@@ -2,6 +2,7 @@ package classes.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Absence implements Serializable {

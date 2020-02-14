@@ -1,5 +1,7 @@
 package classes.repository;
 
+import classes.entity.Absence;
+import classes.entity.Appel;
 import classes.entity.Groupe;
 import classes.entity.Module;
 import classes.utils.GestionFactory;
@@ -62,8 +64,24 @@ public class ModuleDAO {
 
         em.getTransaction().begin();
 
+
+        // On supprime les évaluations liées à ce module qu'on supprime.
+        em.createQuery("DELETE FROM Evaluation e WHERE e.module = :module").setParameter("module", module);
+
+        // On supprime toutes les absences en relation avec les appels de ce module.
+        Query q = em.createQuery("SELECT a FROM Appel a WHERE a.module = :module").setParameter("module", module);
+
+        @SuppressWarnings("unchecked")
+        List<Appel> appelList = q.getResultList();
+        for (Appel appel: appelList) em.createQuery("DELETE FROM Absence a WHERE a.appel = :appel").setParameter("appel", appel);
+
+        // On supprime tous les appels de ce module.
+        em.createQuery("DELETE FROM Appel e WHERE e.module = :module").setParameter("module", module);
+
+        // On trouve le module et on le supprime.
         module = em.find(Module.class, module.getId());
         em.remove(module);
+
 
         em.getTransaction().commit();
         em.close();
