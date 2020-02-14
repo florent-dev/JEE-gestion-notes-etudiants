@@ -60,9 +60,6 @@ public class ModuleController extends HttpServlet {
             case "/list":
                 listAction(request, response);
                 break;
-            case "/viewNotes":
-                viewNotesAction(request, response);
-                break;
             case "/create":
                 createAction(request, response);
                 break;
@@ -79,35 +76,6 @@ public class ModuleController extends HttpServlet {
 
     private void listAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         loadJSP(urlListTemplate, request, response);
-    }
-
-    private void viewNotesAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // On vérifie qu'on ait module et groupe
-        String moduleId = request.getParameter("module");
-        String groupeId = request.getParameter("groupe");
-
-        if (moduleId == null || groupeId == null) {
-            loadJSP(url404Template, request, response);
-            return;
-        }
-
-        Module module = ModuleDAO.find(Integer.parseInt(moduleId));
-        Groupe groupe = GroupeDAO.find(Integer.parseInt(groupeId));
-
-        if (module == null || groupe == null) {
-            loadJSP(url404Template, request, response);
-            return;
-        }
-
-        request.setAttribute("module", module);
-        request.setAttribute("groupe", groupe);
-
-        // Traitement de formulaires
-        String ajouterModuleAction = request.getParameter("ajouterControle");
-        String ajouterNoteEtudiantControleAction = request.getParameter("ajouterNoteEtudiantControle");
-
-
-        loadJSP(url404Template, request, response);
     }
 
     private void createAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

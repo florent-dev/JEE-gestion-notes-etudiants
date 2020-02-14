@@ -139,10 +139,6 @@
             <param-value>/WEB-INF/JSP/module/list.jsp</param-value>
         </init-param>
         <init-param>
-            <param-name>notes</param-name>
-            <param-value>/WEB-INF/JSP/module/notes.jsp</param-value>
-        </init-param>
-        <init-param>
             <param-name>create</param-name>
             <param-value>/WEB-INF/JSP/module/list.jsp</param-value>
         </init-param>
