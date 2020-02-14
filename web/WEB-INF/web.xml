@@ -26,7 +26,7 @@
 
     <!-- GENERAL CONTROLLER SERVLET -->
     <servlet>
-        <servlet-name>defaultController</servlet-name>
+        <servlet-name>default</servlet-name>
         <servlet-class>classes.controller.DefaultController</servlet-class>
         <init-param>
             <param-name>index</param-name>
@@ -40,7 +40,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>defaultController</servlet-name>
+        <servlet-name>default</servlet-name>
         <url-pattern>/</url-pattern>
         <url-pattern>/home/*</url-pattern>
     </servlet-mapping>

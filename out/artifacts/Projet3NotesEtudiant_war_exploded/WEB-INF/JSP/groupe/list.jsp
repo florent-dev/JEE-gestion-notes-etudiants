@@ -8,7 +8,7 @@
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 
 <%
-  // Récupération de la liste d'étudiants
+  // Récupération de la liste des groupes
   Collection<Groupe> listeGroupes = GroupeDAO.getAll();
 %>
 

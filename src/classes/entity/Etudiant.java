@@ -73,4 +73,6 @@ public class Etudiant implements Serializable {
 	public void setGroupe(Groupe groupe) {
 		this.groupe = groupe;
 	}
+
+	public String getNomPrenom() { return this.nom + " " + this.prenom; }
 }

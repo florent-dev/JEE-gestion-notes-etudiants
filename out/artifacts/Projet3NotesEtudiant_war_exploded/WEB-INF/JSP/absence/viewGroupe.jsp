@@ -39,7 +39,7 @@
                         <% for (Absence absence: AbsenceDAO.getAllByAppel(appel)) { %>
                         <div>
                             <% if (absence.isJustifie()) { %> <i class="fa fa-check-circle fa-fw text-success mt-1"></i> <small class="font-weight-bold text-uppercase text-sm-left">JUSTIFIÉE - </small>  <% } %>
-                            <%= absence.getEtudiant().getNom() %> <%= absence.getEtudiant().getPrenom() %>
+                            <%= absence.getEtudiant().getNomPrenom() %>
                         </div>
                         <% } %>
                     </td>

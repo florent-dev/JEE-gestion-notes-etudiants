@@ -1,5 +1,6 @@
 package classes.repository;
 
+import classes.entity.Groupe;
 import classes.entity.Module;
 import classes.utils.GestionFactory;
 
@@ -18,7 +19,6 @@ public class ModuleDAO {
     }
 
     public static List<Module> getAll() {
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
 
         // Recherche
@@ -31,11 +31,7 @@ public class ModuleDAO {
     }
 
     public static Module create(String nom) {
-
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
-
-        // create
         em.getTransaction().begin();
 
         // create new groupe
@@ -43,25 +39,19 @@ public class ModuleDAO {
         module.setNom(nom);
         em.persist(module);
 
-        // Commit
         em.getTransaction().commit();
-
-        // Close the entity manager
         em.close();
 
         return module;
     }
 
     public static Module update(Module module) {
-
-        // Creation de l'entity manager
         EntityManager em = GestionFactory.factory.createEntityManager();
 
         em.getTransaction().begin();
         em.merge(module);
         em.getTransaction().commit();
 
-        // Close the entity manager
         em.close();
 
         return module;
@@ -77,5 +67,17 @@ public class ModuleDAO {
 
         em.getTransaction().commit();
         em.close();
+    }
+
+    public static List<Module> getByGroupe(Groupe groupe) {
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        // Recherche
+        Query q = em.createQuery("SELECT m FROM Module m WHERE :groupe IN (m.groupes)").setParameter("groupe", groupe.getId());
+
+        @SuppressWarnings("unchecked")
+        List<Module> moduleList = q.getResultList();
+
+        return moduleList;
     }
 }

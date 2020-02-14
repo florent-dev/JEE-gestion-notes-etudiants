@@ -46,7 +46,7 @@
                             String absenceJustifieeChecked = (absence != null && absence.isJustifie()) ? "checked" : "";
                     %>
                     <tr>
-                        <td><%= etudiant.getNom() %> <%= etudiant.getPrenom() %></td>
+                        <td><%= etudiant.getNomPrenom() %></td>
                         <td>
                             <input id="absence<%= etudiant.getId() %>" name="absence<%= etudiant.getId() %>" type="checkbox" <%= absenceChecked %>/>
                             <label for="absence<%= etudiant.getId() %>">Noter absent</label>

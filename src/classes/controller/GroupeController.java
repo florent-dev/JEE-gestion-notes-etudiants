@@ -156,13 +156,13 @@ public class GroupeController extends HttpServlet {
     }
 
     private void deleteAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int idEtudiant = ControllerUtils.parseRequestId(request.getParameter("idEtudiant"));
+        int idGroupe = ControllerUtils.parseRequestId(request.getParameter("id"));
 
-        if (idEtudiant != 0) {
-            Etudiant etudiant = EtudiantDAO.find(idEtudiant);
+        if (idGroupe != 0) {
+            Groupe groupe = GroupeDAO.find(idGroupe);
 
-            if (etudiant != null) {
-                EtudiantDAO.remove(etudiant);
+            if (groupe != null) {
+                GroupeDAO.remove(groupe);
             }
 
         }

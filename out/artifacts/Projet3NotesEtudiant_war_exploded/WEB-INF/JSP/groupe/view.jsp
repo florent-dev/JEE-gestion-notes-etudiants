@@ -6,6 +6,7 @@
 <%@ page import="classes.repository.EtudiantDAO" %>
 <%@ page import="classes.repository.EvaluationDAO" %>
 <%@ page import="classes.repository.ModuleDAO" %>
+<%@ page import="classes.utils.CalculUtils" %>
 
 <jsp:include page='<%= application.getInitParameter("entetedepage") %>' />
 
@@ -28,15 +29,17 @@
         <div class="bg-white p-5 rounded my-5 shadow-sm">
             <p class="lead"><b>Modules d'enseignement</b></p>
             <table class="table">
-                <% for (Module module: groupeModules) { %>
+                <% for (Module module: groupeModules) {%>
                 <tr>
                     <td>
                         <div>
-                            <%= module.getNom() %><br />
+                            <span class="text-info">
+                                <%= module.getNom() %> - <span class="font-italic">Moyenne: <%= CalculUtils.echoDoubleHTML(module.getMoyenne(groupe)) %></span>
+                            </span><br />
                             <% for (Evaluation evaluation: EvaluationDAO.getByGroupeAndModule(groupe, module)) { %>
                             <% java.text.DateFormat df = new java.text.SimpleDateFormat("dd/MM/yyyy"); %>
                             <li class="list-unstyled ml-4">
-                                <a class="text-gray" href="<%= application.getContextPath() %>/groupe/evaluation?id=<%= evaluation.getId() %>">
+                                <a class="text-dark" href="<%= application.getContextPath() %>/groupe/evaluation?id=<%= evaluation.getId() %>">
                                     <%= df.format(evaluation.getDate()) %> - <%= evaluation.getNom() %>
                                 </a>
                             </li>

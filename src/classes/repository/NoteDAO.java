@@ -2,6 +2,7 @@ package classes.repository;
 
 import classes.entity.Etudiant;
 import classes.entity.Evaluation;
+import classes.entity.Module;
 import classes.utils.GestionFactory;
 import classes.entity.Note;
 
@@ -73,7 +74,7 @@ public class NoteDAO {
         return deletedCount;
     }
 
-    // Retourne l'ensemble des évaluations
+    // Retourne l'ensemble des notes d'une évaluation
     public static List<Note> getByEvaluation(Evaluation evaluation) {
         EntityManager em = GestionFactory.factory.createEntityManager();
 

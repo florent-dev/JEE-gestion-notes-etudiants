@@ -37,7 +37,7 @@
                     </tr>
                     <% for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(groupe)) { %>
                     <tr>
-                        <td><%= etudiant.getNom() %> <%= etudiant.getPrenom() %></td>
+                        <td><%= etudiant.getNomPrenom() %></td>
                         <td>
                             <input id="absence<%= etudiant.getId() %>" name="absence<%= etudiant.getId() %>" type="checkbox" value="" />
                             <label for="absence<%= etudiant.getId() %>">Noter absent</label>

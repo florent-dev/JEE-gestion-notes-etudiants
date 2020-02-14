@@ -69,4 +69,18 @@ public class GroupeDAO {
 
         return groupe;
     }
+
+
+
+    public static void remove(Groupe groupe) {
+        EntityManager em = GestionFactory.factory.createEntityManager();
+
+        em.getTransaction().begin();
+
+        groupe = em.find(Groupe.class, groupe.getId());
+        em.remove(groupe);
+
+        em.getTransaction().commit();
+        em.close();
+    }
 }

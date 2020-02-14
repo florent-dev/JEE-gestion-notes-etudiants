@@ -50,4 +50,6 @@ public class Enseignant implements Serializable {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public String getNomPrenom() { return this.nom + " " + this.prenom; }
 }
