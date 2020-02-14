@@ -48,6 +48,7 @@ public class AbsenceController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         // On récupère la méthode d'envoi de la requête
         String methode = request.getMethod().toLowerCase();
 
@@ -196,6 +197,7 @@ public class AbsenceController extends HttpServlet {
                         String absenceParam = request.getParameter(idAbsParameter);
                         String idAbsJustifieeParameter = "absenceJustifiee" + etudiant.getId();
                         String absenceJustifieeParam = request.getParameter(idAbsJustifieeParameter);
+                        System.out.println(absenceJustifieeParam);
 
                         // L'absence existe peut-être déjà.
                         Absence absence = AbsenceDAO.getAbsenceEtudiantSurUnAppel(etudiant, appel);
@@ -203,7 +205,7 @@ public class AbsenceController extends HttpServlet {
                         // Si absence au minimum est coché, on créé ou update l'absence.
                         // Autrement on la retire dans le cas où l'absence existe.
                         if (absenceParam != null) {
-                            Boolean absJustifiee = (Boolean.valueOf(absenceJustifieeParam));
+                            boolean absJustifiee = absenceJustifieeParam.equals("on");
 
                             // Si l'absence existe, on l'update.
                             // Autrement on la créé.

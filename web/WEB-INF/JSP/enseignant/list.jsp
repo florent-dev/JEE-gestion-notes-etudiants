@@ -45,10 +45,11 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Ajouter un enseignant</b></p>
             <form method="post" action="<%= application.getContextPath() %>/enseignant/create">
                 <input type="text" class="form-control mb-2" name="nomEnseignant" placeholder="Nom" required />
                 <input type="text" class="form-control mb-2" name="prenomEnseignant" placeholder="Prénom" required />
-                <input type="submit" class="btn btn-info" name="ajouterEnseignant" value="Ajouter un enseignant" />
+                <input type="submit" class="btn btn-info mt-2" name="ajouterEnseignant" value="Ajouter" />
             </form>
         </div>
     </div>

@@ -85,7 +85,7 @@
             <p class="lead"><b>Gestion des absences</b></p>
             <table class="table table-borderless m-0">
                 <tr>
-                    <td><a href="<%= application.getContextPath() %>/absence/appelGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Faire l'appel</a></td>
+                    <td><a href="<%= application.getContextPath() %>/absence/appelGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Faire un appel</a></td>
                     <td><a href="<%= application.getContextPath() %>/absence/viewGroupe?id=<%= groupe.getId() %>" class="btn btn-outline-info w-100">Liste des appels</a></td>
                 </tr>
             </table>

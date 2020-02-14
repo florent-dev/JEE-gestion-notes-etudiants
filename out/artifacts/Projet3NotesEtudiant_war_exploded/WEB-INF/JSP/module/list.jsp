@@ -36,9 +36,10 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Créer un module</b></p>
             <form action="<%= application.getContextPath() %>/module/create">
                 <input type="text" name="nomModule" class="form-control mb-2" placeholder="Nom du module" />
-                <input type="submit" class="btn btn-info" value="Ajouter" />
+                <input type="submit" class="btn btn-info mt-2" value="Ajouter" />
             </form>
         </div>
     </div>

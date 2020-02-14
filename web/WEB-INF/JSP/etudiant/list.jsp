@@ -53,6 +53,7 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Ajouter un étudiant</b></p>
             <form method="post" action="<%= application.getContextPath() %>/etudiant/create">
                 <input type="text" class="form-control mb-2" name="nomEtudiant" placeholder="Nom" required />
                 <input type="text" class="form-control mb-2" name="prenomEtudiant" placeholder="Prénom" required />
@@ -62,7 +63,7 @@
                     <option value="<%= groupe.getId() %>"><%= groupe.getNom() %></option>
                     <% } %>
                 </select>
-                <input type="submit" class="btn btn-info" name="ajouterEtudiant" value="Ajouter" />
+                <input type="submit" class="btn btn-info mt-2" name="ajouterEtudiant" value="Ajouter" />
             </form>
         </div>
     </div>

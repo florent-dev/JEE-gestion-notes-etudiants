@@ -47,6 +47,7 @@ public class EnseignantController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         // On récupère la méthode d'envoi de la requête
         String methode = request.getMethod().toLowerCase();
 

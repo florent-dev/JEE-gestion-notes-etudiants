@@ -3,8 +3,7 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+    <meta charset="utf-8">
     <%--  on récupère les paramètres d'initialisation de la servlet --%>
     <title><%= application.getInitParameter("title") %></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -21,7 +20,7 @@
 <nav class="vertical-nav bg-white" id="sidebar">
     <div class="py-4 px-3 mb-4 bg-light">
         <div class="media-body">
-            <h4 class="m-0">Easyteach</h4>
+            <h4 class="m-0"><a href="<%= application.getContextPath() %>/" class="text-decoration-none text-black-50">Easyteach</a></h4>
             <p class="font-weight-light text-muted mb-0">Support enseignant</p>
         </div>
     </div>
@@ -59,23 +58,19 @@
 
     <ul class="nav flex-column bg-white mb-0">
         <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/index" class="nav-link text-dark font-italic">
+            <a href="<%= application.getContextPath() %>/absence/" class="nav-link text-dark font-italic">
                 <i class="fa fa-pencil mr-3 text-primary fa-fw"></i>
                 Faire un appel
             </a>
         </li>
-        <li class="nav-item">
-            <a href="<%= application.getContextPath() %>/index" class="nav-link text-dark font-italic">
-                <i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
-                Récapitulatif
-            </a>
-        </li>
     </ul>
+
 </nav>
 <!-- End vertical navbar -->
 
 
 <!-- Page content holder -->
 <div class="page-content p-5" id="content">
-    <!-- Toggle button -->
-    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menu</small></button>
+
+<!-- Toggle button -->
+<button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menu</small></button>

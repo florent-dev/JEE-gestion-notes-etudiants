@@ -22,7 +22,7 @@
             <table class="table">
                 <tr>
                     <th>Groupe</th>
-                    <th class="text-center">Nb étudiants</th>
+                    <th class="text-center">Effectifs</th>
                     <th></th>
                 </tr>
                 <% for (Groupe groupe: listeGroupes) { %>
@@ -47,9 +47,10 @@
 
     <div class="col-lg-5">
         <div class="bg-white p-5 rounded my-5 shadow-sm">
+            <p class="lead"><b>Créer un groupe</b></p>
             <form action="<%= application.getContextPath() %>/groupe/create">
                 <input type="text" name="nomGroupe" class="form-control mb-2" placeholder="Nom du groupe" />
-                <input type="submit" name="ajouterGroupe" class="btn btn-info" value="Ajouter" />
+                <input type="submit" name="ajouterGroupe" class="btn btn-info mt-2" value="Ajouter" />
             </form>
         </div>
     </div>

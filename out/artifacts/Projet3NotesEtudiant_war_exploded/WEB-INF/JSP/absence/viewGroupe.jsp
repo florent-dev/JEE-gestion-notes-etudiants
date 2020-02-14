@@ -35,12 +35,16 @@
                 <tr>
                     <td>
                         <% String dateStrFR = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(appel.getDate()); %>
-                        <div><%= dateStrFR %> - <%= appel.getModule().getNom() %></div>
+                        <div class="text-info"><%= dateStrFR %> - <%= appel.getModule().getNom() %></div>
                         <% for (Absence absence: AbsenceDAO.getAllByAppel(appel)) { %>
-                        <div><%= absence.getEtudiant().getNom() %> <%= absence.getEtudiant().getPrenom() %></div>
+                        <div>
+                            <% if (absence.isJustifie()) { %> <i class="fa fa-check-circle fa-fw text-success mt-1"></i> <small class="font-weight-bold text-uppercase text-sm-left">JUSTIFIÉE - </small>  <% } %>
+                            <%= absence.getEtudiant().getNom() %> <%= absence.getEtudiant().getPrenom() %>
+                        </div>
                         <% } %>
                     </td>
                     <td class="text-right">
+                        <a href="<%= application.getContextPath() %>/absence/updateAppelGroupe?id=<%= appel.getId() %>"><i class="fa fa-pencil fa-fw text-primary mt-1"></i></a>
                     </td>
                 </tr>
                 <%

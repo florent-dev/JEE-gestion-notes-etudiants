@@ -19,7 +19,7 @@
         <div class="bg-white p-5 rounded my-5 shadow-sm">
             <form method="post" class="lead" action="<%= application.getContextPath() %>/absence/updateAppelGroupe?id=<%= appel.getId() %>">
 
-                <select class="form-control" name="moduleAppel">
+                <select class="form-control mb-1" name="moduleAppel" required>
                     <option class="disabled" disabled selected value="">Sélectionnez le module</option>
                     <% for (Module module: appel.getGroupe().getModules()) { %>
                         <% if (appel.getGroupe().getModules().contains(module)) { %>
@@ -30,8 +30,8 @@
                     <% } %>
                 </select>
 
-                <input class="form-control" name="dateAppel" type="date" value="<%= new SimpleDateFormat("yyyy-MM-dd").format(appel.getDate()) %>" />
-                <input class="form-control" name="dateTimeAppel" type="time" value="<%= new SimpleDateFormat("HH:mm").format(appel.getDate()) %>" />
+                <input class="form-control mb-1" name="dateAppel" type="date" value="<%= new SimpleDateFormat("yyyy-MM-dd").format(appel.getDate()) %>" required />
+                <input class="form-control mb-4" name="dateTimeAppel" type="time" value="<%= new SimpleDateFormat("HH:mm").format(appel.getDate()) %>" required />
 
                 <table class="table table-striped table-borderless">
                     <tr>

@@ -43,6 +43,7 @@ public class ModuleController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         // On récupère la méthode d'envoi de la requête
         String methode = request.getMethod().toLowerCase();
 
@@ -52,7 +53,6 @@ public class ModuleController extends HttpServlet {
 
         if (action == null || action.equals("/")) {
             action = "/list";
-            //System.out.println("action == null");
         }
 
         // Accès aux différentes pages, pas de .jsp dans le nom de l'action
@@ -80,8 +80,6 @@ public class ModuleController extends HttpServlet {
     private void listAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         loadJSP(urlListTemplate, request, response);
     }
-    // -------------------------
-
 
     private void viewNotesAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // On vérifie qu'on ait module et groupe
