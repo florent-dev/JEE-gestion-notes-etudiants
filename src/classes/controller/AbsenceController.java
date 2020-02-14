@@ -57,8 +57,7 @@ public class AbsenceController extends HttpServlet {
         System.out.println(action);
 
         if (action == null || action.equals("/")) {
-            action = "/index";
-            //System.out.println("action == null");
+            action = "/404";
         }
 
         // Accès aux différentes pages, pas de .jsp dans le nom de l'action
@@ -87,15 +86,17 @@ public class AbsenceController extends HttpServlet {
     private void viewGroupeAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int groupeId = ControllerUtils.parseRequestId(request.getParameter("id"));
 
+        // Id groupe incorrect.
         if (groupeId == 0) {
-            response.sendRedirect(request.getContextPath() + "/absence/404");
+            loadJSP(url404Template, request, response);
             return;
         }
 
         Groupe groupe = GroupeDAO.find(groupeId);
 
+        // Groupe non trouvé.
         if (groupe == null) {
-            response.sendRedirect(request.getContextPath() + "/absence/404");
+            loadJSP(url404Template, request, response);
             return;
         }
 
@@ -107,18 +108,21 @@ public class AbsenceController extends HttpServlet {
     private void appelGroupeAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int groupeId = ControllerUtils.parseRequestId(request.getParameter("id"));
 
+        // Id groupe incorrect.
         if (groupeId == 0) {
-            response.sendRedirect(request.getContextPath() + "/absence/404");
+            loadJSP(url404Template, request, response);
             return;
         }
 
         Groupe groupe = GroupeDAO.find(groupeId);
 
+        // Groupe non trouvé.
         if (groupe == null) {
-            response.sendRedirect(request.getContextPath() + "/absence/404");
+            loadJSP(url404Template, request, response);
             return;
         }
 
+        // Informations retournées si soumission du formulaire.
         int moduleAppelId = ControllerUtils.parseRequestId(request.getParameter("moduleAppel"));
         String dateAppel = request.getParameter("dateAppel");
         String dateTimeAppel = request.getParameter("dateTimeAppel");
@@ -132,23 +136,24 @@ public class AbsenceController extends HttpServlet {
                     Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(dateAppel + " " + dateTimeAppel);
                     Appel appel = AppelDAO.create(date, null, groupe, module);
 
-                    // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant
+                    // Pour chaque étudiant du groupe, on regarde si on récupère des infos par son id.
                     for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(groupe)) {
                         String idAbsParameter = "absence" + etudiant.getId();
                         String absenceParam = request.getParameter(idAbsParameter);
                         String idAbsJustifieeParameter = "absenceJustifiee" + etudiant.getId();
                         String absenceJustifieeParam = request.getParameter(idAbsJustifieeParameter);
+                        System.out.println("absenceJustifieeParam " + absenceJustifieeParam);
 
-                        // Si absence au minimum est coché, on créé l'absence.
-                        // Autrement on retire la note si elle existait.
+                        // Si absence est coché, on créé l'absence.
                         if (absenceParam != null) {
-                            Boolean absJustifiee = (Boolean.valueOf(absenceJustifieeParam));
+                            // Récupération de l'input checkbox. True s'il est coché.
+                            boolean absJustifiee = (absenceJustifieeParam != null && absenceJustifieeParam.equals("on"));
                             AbsenceDAO.create(absJustifiee, date, appel, etudiant);
                         }
                     }
 
                 } catch (Exception e) {
-                    //System.out.println(e);
+                    System.out.println(e);
                 }
 
                 response.sendRedirect(request.getContextPath() + "/absence/viewGroupe?id=" + groupe.getId());
@@ -164,6 +169,7 @@ public class AbsenceController extends HttpServlet {
     private void updateAppelGroupeAction(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int appelId = ControllerUtils.parseRequestId(request.getParameter("id"));
 
+        // Id appel incorrect.
         if (appelId == 0) {
             loadJSP(url404Template, request, response);
             return;
@@ -171,12 +177,13 @@ public class AbsenceController extends HttpServlet {
 
         Appel appel = AppelDAO.find(appelId);
 
+        // Appel non trouvé.
         if (appel == null) {
             loadJSP(url404Template, request, response);
             return;
         }
 
-        // Partie formulaire soumis. On récolte les supposées informations.
+        // Informations du formulaire s'il est soumis.
         int moduleAppelId = ControllerUtils.parseRequestId(request.getParameter("moduleAppel"));
         String dateAppel = request.getParameter("dateAppel");
         String dateTimeAppel = request.getParameter("dateTimeAppel");
@@ -191,7 +198,7 @@ public class AbsenceController extends HttpServlet {
                     appel.setModule(module);
                     appel.setDate(date);
 
-                    // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant
+                    // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant.
                     for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(appel.getGroupe())) {
                         String idAbsParameter = "absence" + etudiant.getId();
                         String absenceParam = request.getParameter(idAbsParameter);
@@ -205,7 +212,7 @@ public class AbsenceController extends HttpServlet {
                         // Si absence au minimum est coché, on créé ou update l'absence.
                         // Autrement on la retire dans le cas où l'absence existe.
                         if (absenceParam != null) {
-                            boolean absJustifiee = absenceJustifieeParam.equals("on");
+                            boolean absJustifiee = (absenceJustifieeParam != null && absenceJustifieeParam.equals("on"));
 
                             // Si l'absence existe, on l'update.
                             // Autrement on la créé.

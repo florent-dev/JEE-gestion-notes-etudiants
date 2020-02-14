@@ -39,11 +39,11 @@
                     <tr>
                         <td><%= etudiant.getNomPrenom() %></td>
                         <td>
-                            <input id="absence<%= etudiant.getId() %>" name="absence<%= etudiant.getId() %>" type="checkbox" value="" />
+                            <input id="absence<%= etudiant.getId() %>" name="absence<%= etudiant.getId() %>" type="checkbox" />
                             <label for="absence<%= etudiant.getId() %>">Noter absent</label>
                         </td>
                         <td>
-                            <input id="absenceJustifiee<%= etudiant.getId() %>" name="absenceJustifiee<%= etudiant.getId() %>" type="checkbox" value="" />
+                            <input id="absenceJustifiee<%= etudiant.getId() %>" name="absenceJustifiee<%= etudiant.getId() %>" type="checkbox" />
                             <label for="absenceJustifiee<%= etudiant.getId() %>">Abs. Justifiée</label>
                         </td>
                     </tr>

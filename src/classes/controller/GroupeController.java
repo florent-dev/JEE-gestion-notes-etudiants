@@ -282,9 +282,22 @@ public class GroupeController extends HttpServlet {
         }
 
         int idEvaluationForm = ControllerUtils.parseRequestId(request.getParameter("idEvaluation"));
-        String nomEvaluationm = request.getParameter("nomEvaluation");
+        String nomEvaluation = request.getParameter("nomEvaluation");
         String descriptionEvaluation = request.getParameter("descriptionEvaluation");
         String dateEvaluation = request.getParameter("dateEvaluation");
+
+        // Mise à jour des données de l'évaluation.
+        if (nomEvaluation != null && descriptionEvaluation != null && dateEvaluation != null) {
+            try {
+                Date dateEvaluationParsed = new SimpleDateFormat("yyyy-MM-dd").parse(dateEvaluation);
+                evaluation.setNom(nomEvaluation);
+                evaluation.setDescription(descriptionEvaluation);
+                evaluation.setDate(dateEvaluationParsed);
+                EvaluationDAO.update(evaluation);
+            } catch (Exception e) {
+                //System.out.println(e);
+            }
+        }
 
         // Fetch des notes/étudiants de l'évaluation et récupération du paramètre si existant
         for (Etudiant etudiant: EtudiantDAO.getAllByGroupe(evaluation.getGroupe())) {
